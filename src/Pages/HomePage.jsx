@@ -91,15 +91,22 @@ const HomePage = () => {
           <AdsBannerSlider items={3} />
         </div>
       </section>
-      <section className="py-5 pt-0 bg-white blogSection">
-        <div className="py-5">
+      <section className="py-5 pb-8 pt-0 bg-white blogSection">
+        <div className="container">
+          <h2 className="text-[20px] font-600] mb-5">From The Blog</h2>
           <Swiper
-            slidesPerView={3}
+            slidesPerView={4}
             spaceBetween={10}
             navigation={true}
             modules={[Navigation]}
             className="blogSlider"
           >
+            <SwiperSlide><BlogItem/></SwiperSlide>
+            <SwiperSlide><BlogItem/></SwiperSlide>
+            <SwiperSlide><BlogItem/></SwiperSlide>
+            <SwiperSlide><BlogItem/></SwiperSlide>
+            <SwiperSlide><BlogItem/></SwiperSlide>
+            <SwiperSlide><BlogItem/></SwiperSlide>
             <SwiperSlide><BlogItem/></SwiperSlide>
           </Swiper>
         </div>

@@ -1,0 +1,173 @@
+@import "tailwindcss";
+
+body {
+  font-family: "Roboto", sans-serif;
+  background-color: #f0f0f0;
+  overflow-x: hidden;
+}
+/* ---------------------------
+   WebKit / Blink (Chrome, Edge, Safari)
+   --------------------------- */
+::-webkit-scrollbar {
+  width: 8px; /* vertical scrollbar */
+  height: 8px; /* horizontal scrollbar */
+}
+
+::-webkit-scrollbar-track {
+  background: transparent; /* track background */
+  border-radius: 100px; /* pill-shaped track */
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(0, 0, 0, 0.35); /* thumb color */
+  border-radius: 100px; /* fully rounded */
+  border: 2px solid transparent; /* space between thumb and track */
+  background-clip: padding-box; /* keep border as gap */
+  transition: background 0.18s ease, transform 0.18s ease;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(0, 0, 0, 0.55);
+  transform: scale(1.05);
+}
+
+::-webkit-scrollbar-corner {
+  background: transparent;
+}
+
+/* ---------------------------
+   Firefox
+   --------------------------- */
+/* global fallback (or scope to a class instead of *) */
+* {
+  scrollbar-width: thin; /* auto | thin | none */
+  scrollbar-color: rgb(255, 0, 0) transparent; /* thumb track */
+}
+
+/* ---------------------------
+   Scoped example for a container
+   --------------------------- */
+.my-scroll {
+  overflow: auto;
+  scrollbar-width: thin;
+  scrollbar-color: var(--scroll-thumb, rgba(255, 0, 0, 0.35))
+    var(--scroll-track, transparent);
+}
+.my-scroll::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+.my-scroll::-webkit-scrollbar-thumb {
+  background: var(--scroll-thumb, rgba(0, 0, 0, 0.35));
+}
+
+.container {
+  width: 90%;
+  margin: auto;
+}
+.link:hover {
+  color: #ff5252;
+}
+
+.MuiBadge-badge {
+  cursor: pointer;
+  background-color: #ff5252 !important;
+}
+nav ul button:hover {
+  background-color: transparent !important;
+}
+.sliderHome {
+  overflow: inherit !important;
+}
+.sliderHome .swiper-button-next,
+.sliderHome .swiper-button-prev {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #ffffff;
+  border-radius: 100%;
+  width: 40px;
+  height: 40px;
+  min-width: 40px;
+  box-shadow: 0px 3px 6px #00000029;
+}
+
+.sliderHome .swiper-button-next::after,
+.sliderHome .swiper-button-prev::after {
+  font-size: 20px;
+  color: #ff5252;
+}
+
+.smallBtn .swiper-button-prev,
+.smallBtn .swiper-button-next {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #ffffff !important;
+  border-radius: 100%;
+  width: 30px;
+  height: 30px;
+  min-width: 30px;
+  box-shadow: 0px 3px 6px #00000029;
+  top: 55% !important;
+}
+.smallBtn .swiper-button-prev::after,
+.smallBtn .swiper-button-next::after {
+  font-size: 18px;
+  color: #ff5252;
+}
+
+.homeCatSlider .swiper-button-next,
+.homeCatSlider .swiper-button-prev {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #ffffff;
+  border-radius: 100%;
+  width: 30px;
+  height: 30px;
+  min-width: 30px;
+  box-shadow: 0px 3px 6px #00000029;
+  &:hover {
+    background-color: #ff5252;
+    transition: all 0.3s ease-in-out;
+  }
+}
+.homeCatSlider {
+  overflow: inherit !important;
+}
+.homeCatSlider .swiper-button-next::after,
+.homeCatSlider .swiper-button-prev::after {
+  font-size: 14px;
+  color: #ff5252;
+}
+.homeCatSlider .swiper-button-next:hover::after,
+.homeCatSlider .swiper-button-prev:hover::after {
+  color: #ffffff;
+  transition: all 0.3s ease-in-out;
+}
+.homeCatSlider .swiper-button-next {
+  right: -10px !important;
+}
+.homeCatSlider .swiper-button-prev {
+  left: -10px !important;
+}
+.homeCatSlider .item {
+  border: 1px solid #e0e0e0;
+  transition: all 0.3s ease-in-out;
+  &:hover {
+    box-shadow: 0px 6px 12px #00000017;
+    transform: translateY(-1px);
+  }
+}
+.MuiTabs-indicator{
+  background-color: #ff5252 !important;
+}
+.MuiTab-textColorPrimary.Mui-selected{
+  color: #ff5252 !important;
+}
+.produtsSlider .swiper-wrapper{
+  padding: 15px;
+  margin-left: -15px;
+  margin-right: -15px;
+}

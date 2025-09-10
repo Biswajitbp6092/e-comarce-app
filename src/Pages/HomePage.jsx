@@ -12,6 +12,7 @@ import "swiper/css";
 import "swiper/css/navigation";
 import { Navigation } from "swiper/modules";
 import BlogItem from "../components/BlogItem/BlogItem";
+import Footer from "../components/Footer/Footer";
 
 const HomePage = () => {
   const [value, setValue] = React.useState(0);
@@ -96,23 +97,37 @@ const HomePage = () => {
           <h2 className="text-[20px] font-600] mb-5">From The Blog</h2>
           <Swiper
             slidesPerView={4}
-            spaceBetween={10}
+            spaceBetween={15}
             navigation={true}
             modules={[Navigation]}
             className="blogSlider"
           >
-            <SwiperSlide><BlogItem/></SwiperSlide>
-            <SwiperSlide><BlogItem/></SwiperSlide>
-            <SwiperSlide><BlogItem/></SwiperSlide>
-            <SwiperSlide><BlogItem/></SwiperSlide>
-            <SwiperSlide><BlogItem/></SwiperSlide>
-            <SwiperSlide><BlogItem/></SwiperSlide>
-            <SwiperSlide><BlogItem/></SwiperSlide>
+            <SwiperSlide>
+              <BlogItem />
+            </SwiperSlide>
+            <SwiperSlide>
+              <BlogItem />
+            </SwiperSlide>
+            <SwiperSlide>
+              <BlogItem />
+            </SwiperSlide>
+            <SwiperSlide>
+              <BlogItem />
+            </SwiperSlide>
+            <SwiperSlide>
+              <BlogItem />
+            </SwiperSlide>
+            <SwiperSlide>
+              <BlogItem />
+            </SwiperSlide>
+            <SwiperSlide>
+              <BlogItem />
+            </SwiperSlide>
           </Swiper>
         </div>
       </section>
-      <br /> <br /> <br /> <br /> <br /> <br /> <br /> <br /> <br /> <br />{" "}
-      <br />
+
+      <Footer />
     </>
   );
 };

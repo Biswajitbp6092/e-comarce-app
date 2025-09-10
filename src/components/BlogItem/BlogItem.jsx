@@ -20,7 +20,7 @@ const BlogItem = () => {
         <h2 className="text-[16px] font-[500] text-black">
          <Link to="/" className="link">Turpis at eleifend Aenean porta</Link>
         </h2>
-        <p className="text-[13px] font-[400] text-[rgba(0,0,0,0.8)] mb-4">
+        <p className="text-[15px] font-[400] text-[rgba(0,0,0,0.8)] mb-4">
           Lorem ipsum dolor, sit amet consectetur adipisicing elit. Dolorum
           consequatur ducimus vitae. Perferendis provident illo labore placeat.
         </p>

@@ -65,6 +65,14 @@ body {
   width: 90%;
   margin: auto;
 }
+
+.btn-org {
+  background-color: #ff5252 !important;
+  color: #ffffff !important;
+  font-weight: 500 !important;
+  font-size: 16px !important;
+  padding: 7px 20px !important;
+}
 .link:hover {
   color: #ff5252;
 }
@@ -160,14 +168,22 @@ nav ul button:hover {
     transform: translateY(-1px);
   }
 }
-.MuiTabs-indicator{
+.MuiTabs-indicator {
   background-color: #ff5252 !important;
 }
-.MuiTab-textColorPrimary.Mui-selected{
+.MuiTab-textColorPrimary.Mui-selected {
   color: #ff5252 !important;
 }
-.produtsSlider .swiper-wrapper{
+.produtsSlider .swiper-wrapper {
   padding: 15px;
   margin-left: -15px;
   margin-right: -15px;
+}
+.css-vuhw6e-MuiButtonBase-root-MuiSwitchBase-root-MuiCheckbox-root.Mui-checked,
+.css-vuhw6e-MuiButtonBase-root-MuiSwitchBase-root-MuiCheckbox-root.MuiCheckbox-indeterminate {
+  color: #ff5252 !important;
+}
+.MuiFormControlLabel-label{
+  font-size: 14px !important;
+  color: rgba(0, 0, 0, 0.7);
 }

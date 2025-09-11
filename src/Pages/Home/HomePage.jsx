@@ -1,19 +1,22 @@
 import React from "react";
-import HomeSlider from "../components/HomeSlider/HomeSlider";
-import HomeCatSlider from "../components/HomeCatSlider/HomeCatSlider";
+import HomeSlider from "../../components/HomeSlider/HomeSlider";
+import HomeCatSlider from "../../components/HomeCatSlider/HomeCatSlider";
 import { LiaShippingFastSolid } from "react-icons/lia";
-import AdsBannerSlider from "../components/AdsBannerSlider/AdsBannerSlider";
+import AdsBannerSlider from "../../components/AdsBannerSlider/AdsBannerSlider";
 import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
 // import Box from "@mui/material/Box";
-import ProdutsSlider from "../components/ProdutsSlider/ProdutsSlider";
+import ProdutsSlider from "../../components/ProdutsSlider/ProdutsSlider";
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 import "swiper/css/navigation";
 import { Navigation } from "swiper/modules";
-import BlogItem from "../components/BlogItem/BlogItem";
-import Footer from "../components/Footer/Footer";
-import HomeSliderAds from "../components/HomeSliderAds/HomeSliderAds";
+import BlogItem from "../../components/BlogItem/BlogItem";
+
+import HomeSliderAds from "../../components/HomeSliderAds/HomeSliderAds";
+import BannerBoxAds from "../../components/BannerBoxAds/BannerBoxAds";
+import AdsBannerSliderV2 from "../../components/AdsBannerSliderV2/AdsBannerSliderV2";
+
 
 const HomePage = () => {
   const [value, setValue] = React.useState(0);
@@ -23,11 +26,25 @@ const HomePage = () => {
   };
   return (
     <>
-      {/* <HomeSlider /> */}
+      <HomeSlider />
       <section className="py-6">
-        <div className="container flex items-center">
-          <div className="part1 w-[75%]">
-            <HomeSliderAds/>
+        <div className="container flex gap-5">
+          <div className="part1 w-[70%] overflow-hidden">
+            <HomeSliderAds />
+          </div>
+          <div className="part2 w-[30%] flex items-center gap-5 justify-between flex-col">
+            <BannerBoxAds
+              info="left"
+              images={
+                "https://demos.codezeel.com/prestashop/PRS21/PRS210502/img/cms/sub-banner-1.jpg"
+              }
+            />
+            <BannerBoxAds
+              info="right"
+              images={
+                "https://demos.codezeel.com/prestashop/PRS21/PRS210502/img/cms/sub-banner-2.jpg"
+              }
+            />
           </div>
         </div>
       </section>
@@ -83,7 +100,7 @@ const HomePage = () => {
             </div>
           </div>
 
-          <AdsBannerSlider items={4} />
+          <AdsBannerSliderV2 items={4} />
         </div>
       </section>
       <section className="py-5 pt-0 bg-white">
@@ -135,7 +152,7 @@ const HomePage = () => {
         </div>
       </section>
 
-      <Footer />
+      
     </>
   );
 };

@@ -1,0 +1,7 @@
+.sideBar .scroll{ max-height: 220px; overflow-y: scroll; overflow-x: hidden;}
+.sideBar .scroll::-webkit-scrollbar{ width: 8px !important; height: 5px !important;}
+.sideBar .scroll::-webkit-scrollbar-thumb{ background-color: #ccc !important;}
+
+.ReactCollapse--collapse {
+  transition: height 500ms;
+}

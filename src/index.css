@@ -39,7 +39,7 @@ body {
    Firefox
    --------------------------- */
 /* global fallback (or scope to a class instead of *) */
-* {
+::-webkit-scrollbar-thumb{
   scrollbar-width: thin; /* auto | thin | none */
   scrollbar-color: rgb(255, 0, 0) transparent; /* thumb track */
 }
@@ -188,38 +188,26 @@ nav ul button:hover {
   color: rgba(0, 0, 0, 0.7);
 }
 
+
+
+
+
 .swiper-pagination-bullet-active {
   background-color: #ff5252 !important;
 }
-.homeSliderAds .swiper-slide-active .info{
-  right: 0px !important;
-  opacity: 1 ;
-}
-.homeSliderAds .swiper-slide-active .info h4{
-  right: 0px !important;
-  opacity: 1 ;
-}
-.homeSliderAds .swiper-slide-active .info h3{
-  right: 0px !important;
-  opacity: 1 ;
-}
-.homeSliderAds .swiper-slide-active .info h2{
-  right: 0px !important;
-  opacity: 1 ;
-}
-.homeSliderAds .swiper-slide-active .info btn{
-  bottom: 0px !important;
-  opacity: 1 ;
-}
-.homeSliderAds .info h4{
-  transition-duration: 2s;
-}
-.homeSliderAds .info h3{
-  transition-duration: 2.3s;
-}
-.homeSliderAds .info h2{
-  transition-duration: 3s;
-}
-.homeSliderAds .info .btn{
-  transition-duration: 1.s;
-}
+
+
+.homeSliderAds .swiper-slide-active .info{ right: 0px !important; opacity: 1 ;}
+.homeSliderAds .swiper-slide-active .info h4{ right: 0px !important; opacity: 1 ;}
+.homeSliderAds .swiper-slide-active .info h3{ right: 0px !important; opacity: 1 ;}
+.homeSliderAds .swiper-slide-active .info h2{ right: 0px !important; opacity: 1 ;}
+.homeSliderAds .swiper-slide-active .info .btn_{bottom: 0px !important; opacity: 1 ;}
+
+
+
+.homeSliderAds .info h4{ transition-duration: 0.4s;}
+.homeSliderAds .info h2{ transition-duration: 0.8s;}
+.homeSliderAds .info h3{ transition-duration: 1.1s;}
+.homeSliderAds .info .btn_{ transition-duration: 1.5s;}
+
+.MuiCheckbox-root{ padding: 6px !important;}

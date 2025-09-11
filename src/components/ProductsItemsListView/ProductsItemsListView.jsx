@@ -6,13 +6,16 @@ import Button from "@mui/material/Button";
 import { FaRegHeart } from "react-icons/fa";
 import { GoGitCompare } from "react-icons/go";
 import { MdOutlineZoomOutMap } from "react-icons/md";
+import { MdShoppingCart } from "react-icons/md";
 
-const ProductsItems = () => {
+
+
+const ProductsItemsListView = () => {
   return (
-    <div className="productsItems shadow-lg rounded-md overflow-hidden">
-      <div className="group imgWrapper w-[100%] overflow-hidden rounded-md relative">
+    <div className="productsItems shadow-lg rounded-md overflow-hidden  flex items-center">
+      <div className="group imgWrapper w-[25%] overflow-hidden rounded-md relative">
         <Link to="/">
-          <div className="img h-[220px] overflow-hidden">
+          <div className="img h-[200px] overflow-hidden">
             <img
               src="https://serviceapi.spicezgold.com/download/1753722939206_125c18d6-592d-4082-84e5-49707ae9a4fd1749366193911-Flying-Machine-Women-Wide-Leg-High-Rise-Light-Fade-Stretchab-1.jpg"
               alt="Product Img"
@@ -41,17 +44,23 @@ const ProductsItems = () => {
           </Button>
         </div>
       </div>
-      <div className="info p-3 py-5">
-        <h6 className="text-[13px]">
+      <div className="info px-8 p-3 py-5 w-[75%]">
+        <h6 className="text-[15px]">
           <Link to="/" className="link transition-all">
             Flying Machine
           </Link>
         </h6>
-        <h3 className="text-[13px] title mt-1 font-[500] mb-1 text-[rgba(0,0,0,0.9)]">
+        <h3 className="text-[18px] title mt-3 font-[500] mb-3 text-[rgba(0,0,0,0.9)]">
           <Link to="/" className="link transition-all">
             Women Wide Leg High-Rise ...
           </Link>
         </h3>
+        <p className="text-[14px] mb-3">
+          Lorem Ipsum is simply dummy text of the printing and typesetting
+          industry. Lorem Ipsum has been the industry's standard dummy text ever
+          since the 1500s, when an unknown printer took a galley of type and
+          scrambled it to make a type specimen book.
+        </p>
         <Rating name="size-small" defaultValue={4} size="small" readOnly />
         <div className="flex items-center gap-4">
           <span className="old-price line-through text-gray-600 text-[15px] font-[500]">
@@ -61,9 +70,12 @@ const ProductsItems = () => {
             $58.00
           </span>
         </div>
+        <div className="mt-3">
+          <Button className="btn-org flex gap-2"><MdShoppingCart size={22}/>Add to Cart</Button>
+        </div>
       </div>
     </div>
   );
 };
 
-export default ProductsItems;
+export default ProductsItemsListView;

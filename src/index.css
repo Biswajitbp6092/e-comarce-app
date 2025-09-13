@@ -2,9 +2,10 @@
 
 body {
   font-family: "Roboto", sans-serif;
-  background-color: #f0f0f0;
+  background-color: #e2e2e2;
   overflow-x: hidden;
 }
+p{font-size: 14px; line-height: 25px;}
 /* ---------------------------
    WebKit / Blink (Chrome, Edge, Safari)
    --------------------------- */
@@ -234,3 +235,12 @@ nav ul button:hover {
 }
 .itemViewAction button.active svg{ color: #ff5252 !important;}
 .css-1l5xwdx-MuiButtonBase-root-MuiPaginationItem-root.Mui-selected{ background-color: #ff5252 !important; color: #ffffff !important;}
+
+
+
+.zoomProductSliderThums .swiper-slide{ height: auto !important;}
+.zoomProductSliderThums .swiper-button-next { bottom: 0px !important; right: inherit !important; top: inherit !important; width:100% !important; height: 30px !important; border-radius: 0px !important; background-color: #ff5252;}
+.zoomProductSliderThums .swiper-button-next::after{transform: rotate(90deg) !important; font-size: 2rem; color: #e0e0e0;}
+
+.zoomProductSliderThums .swiper-button-prev { top: 22px !important; left: 0px !important; width:100% !important; height: 30px !important; border-radius: 0px !important; background-color: #ff5252;}
+.zoomProductSliderThums .swiper-button-prev::after{transform: rotate(90deg) !important; font-size: 2rem; color: #e0e0e0;}

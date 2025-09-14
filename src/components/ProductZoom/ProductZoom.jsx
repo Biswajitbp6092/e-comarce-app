@@ -28,7 +28,7 @@ const ProductZoom = () => {
             spaceBetween={10}
             navigation={true}
             modules={[Navigation]}
-            className="zoomProductSliderThums h-[500px] overflow-hidden"
+            className="zoomProductSliderThums h-[500px] overflow-hidden "
           >
             <SwiperSlide>
               <div
@@ -111,7 +111,7 @@ const ProductZoom = () => {
           </Swiper>
         </div>
 
-        <div className="zoomContainer w-[85%] h-[500px] overflow-hidden">
+        <div className="zoomContainer w-[85%] h-[500px] overflow-hidden rounded-md">
           <Swiper
             ref={zoomSliderBig}
             slidesPerView={1}

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Link } from "react-router-dom";
 import Search from "../Search/Search";
 import Badge from "@mui/material/Badge";
@@ -9,6 +9,7 @@ import { FaRegHeart } from "react-icons/fa";
 import { GoGitCompare } from "react-icons/go";
 import Tooltip from "@mui/material/Tooltip";
 import Navigation from "./Navigation/Navigation";
+import { myContext } from "../../App";
 
 const StyledBadge = styled(Badge)(({ theme }) => ({
   "& .MuiBadge-badge": {
@@ -20,6 +21,7 @@ const StyledBadge = styled(Badge)(({ theme }) => ({
 }));
 
 const Header = () => {
+  const Context = useContext(myContext)
   return (
     <header className="header-section bg-white">
       <div className="top-strip py-2 border-t-2 border-b-2 border-gray-200">
@@ -78,30 +80,32 @@ const Header = () => {
                 </Link>
               </li>
               <li>
-                <Tooltip title="Cart">
+                <Tooltip title="Compare">
                   <IconButton aria-label="cart">
                     <StyledBadge badgeContent={4} color="secondary">
-                      <IoCartOutline size={30} />
+                      <GoGitCompare />
                     </StyledBadge>
                   </IconButton>
                 </Tooltip>
               </li>
+
               <li>
-                 <Tooltip title="Wishlist">
-                <IconButton aria-label="Wishlist">
-                  <StyledBadge badgeContent={4} color="secondary">
-                    <FaRegHeart />
-                  </StyledBadge>
-                </IconButton>
+                <Tooltip title="Wishlist">
+                  <IconButton aria-label="Wishlist">
+                    <StyledBadge badgeContent={4} color="secondary">
+                      <FaRegHeart />
+                    </StyledBadge>
+                  </IconButton>
                 </Tooltip>
               </li>
+
               <li>
-                 <Tooltip title="Compare">
-                <IconButton aria-label="cart">
-                  <StyledBadge badgeContent={4} color="secondary">
-                    <GoGitCompare />
-                  </StyledBadge>
-                </IconButton>
+                <Tooltip title="Cart">
+                  <IconButton aria-label="cart" onClick={()=>Context.setOpenCartPanel(true)}>
+                    <StyledBadge badgeContent={4} color="secondary">
+                      <IoCartOutline size={30} />
+                    </StyledBadge>
+                  </IconButton>
                 </Tooltip>
               </li>
             </ul>

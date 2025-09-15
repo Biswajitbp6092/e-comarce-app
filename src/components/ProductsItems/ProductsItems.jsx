@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext } from "react";
 import "./ProductsItems.css";
 import { Link } from "react-router-dom";
 import Rating from "@mui/material/Rating";
@@ -6,8 +6,10 @@ import Button from "@mui/material/Button";
 import { FaRegHeart } from "react-icons/fa";
 import { GoGitCompare } from "react-icons/go";
 import { MdOutlineZoomOutMap } from "react-icons/md";
+import { myContext } from "../../App";
 
 const ProductsItems = () => {
+  const context = useContext(myContext)
   return (
     <div className="productsItems shadow-lg rounded-md overflow-hidden">
       <div className="group imgWrapper w-[100%] overflow-hidden rounded-md relative">
@@ -30,7 +32,7 @@ const ProductsItems = () => {
         </span>
 
         <div className="actions absolute top-[-15px] right-[5px] z-5 flex items-center gap-2 flex-col w-[50px] transition-all duration-300 group-hover:top-[15px] opacity-0 group-hover:opacity-100">
-          <Button className="!w-[35px] !h-[35px] !min-w-[35px] !rounded-full !text-black !bg-white hover:!bg-[#ff5252] hover:!text-white transition-all duration-300 ease-in">
+          <Button onClick={()=>context.setOpenProductDetailsModal(true)} className="!w-[35px] !h-[35px] !min-w-[35px] !rounded-full !text-black !bg-white hover:!bg-[#ff5252] hover:!text-white transition-all duration-300 ease-in">
             <MdOutlineZoomOutMap size={18} />
           </Button>
           <Button className="!w-[35px] !h-[35px] !min-w-[35px] !rounded-full !text-black !bg-white hover:!bg-[#ff5252] hover:!text-white transition-all duration-300 ease-in">

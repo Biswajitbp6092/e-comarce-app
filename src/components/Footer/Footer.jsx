@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext } from "react";
 import { LiaShippingFastSolid } from "react-icons/lia";
 import { GiReturnArrow } from "react-icons/gi";
 import { RiSecurePaymentLine } from "react-icons/ri";
@@ -7,7 +7,6 @@ import { BiSupport } from "react-icons/bi";
 import { Link } from "react-router-dom";
 import { HiOutlineChatBubbleLeftRight } from "react-icons/hi2";
 import Button from "@mui/material/Button";
-import FormGroup from "@mui/material/FormGroup";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import Checkbox from "@mui/material/Checkbox";
 import { FaFacebookF } from "react-icons/fa";
@@ -18,9 +17,15 @@ import { FaInstagram } from "react-icons/fa";
 
 
 
+import Drawer from "@mui/material/Drawer";
+import CartPanel from "../CartPanel/CartPanel";
+import { myContext } from "../../App";
+import { IoClose } from "react-icons/io5";
 
 
 const Footer = () => {
+
+  const context = useContext(myContext)
   return (
     <>
       <footer className="py-6 bg-[#fafafa]">
@@ -194,7 +199,7 @@ const Footer = () => {
                 />
                 <Button className="btn-org">SUBSCRIBE</Button>
                 <FormControlLabel
-                  control={<Checkbox/>}
+                  control={<Checkbox />}
                   label="I agree to the terms and conditions and the privacy policy"
                 />
               </form>
@@ -216,7 +221,7 @@ const Footer = () => {
               </Link>
             </li>
 
-             <li className="list-none">
+            <li className="list-none">
               <Link
                 to="/"
                 target="_blank"
@@ -226,8 +231,7 @@ const Footer = () => {
               </Link>
             </li>
 
-
-             <li className="list-none">
+            <li className="list-none">
               <Link
                 to="/"
                 target="_blank"
@@ -237,8 +241,7 @@ const Footer = () => {
               </Link>
             </li>
 
-
-             <li className="list-none">
+            <li className="list-none">
               <Link
                 to="/"
                 target="_blank"
@@ -248,8 +251,7 @@ const Footer = () => {
               </Link>
             </li>
 
-
-              <li className="list-none">
+            <li className="list-none">
               <Link
                 to="/"
                 target="_blank"
@@ -260,17 +262,37 @@ const Footer = () => {
             </li>
           </ul>
 
-          <p className="text-[13px] text-center mb-0">© 2025 - Ecommerce software by PrestaShop™</p>
+          <p className="text-[13px] text-center mb-0">
+            © 2025 - Ecommerce software by PrestaShop™
+          </p>
 
           <div className="flex items-center gap-1">
             <img src="/carte_bleue.png" alt="images" />
             <img src="/visa.png" alt="images" />
-            <img src="/master_card.png" alt="images" />            
+            <img src="/master_card.png" alt="images" />
             <img src="/american_express.png" alt="images" />
             <img src="/paypal.png" alt="images" />
           </div>
         </div>
       </div>
+
+      {/* cart panel */}
+      <Drawer
+        open={context.openCartPanel}
+        onClose={context.toggleCartPanel(false)}
+        anchor="right"
+        className="cartPanel"
+      >
+        <div className="flex items-center justify-between py-3 px-4 gap-3 border-b border-[rgba(0,0,0,0.2)]">
+          <h1>Shopping cart (1)</h1>
+          <IoClose
+            onClick={context.toggleCartPanel(false)}
+            size={20}
+            className="cursor-pointer"
+          />
+        </div>
+        <CartPanel />
+      </Drawer>
     </>
   );
 };

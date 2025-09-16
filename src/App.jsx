@@ -18,6 +18,7 @@ import ProductZoom from "./components/ProductZoom/ProductZoom";
 import ProductDetailsComponent from "./components/ProductDetailsComponent/ProductDetailsComponent";
 import Login from "./Pages/Login/Login";
 import Register from "./Pages/Register/Register";
+import CartPage from "./Pages/CartPage/CartPage";
 
 const myContext = createContext();
 
@@ -53,6 +54,7 @@ function App() {
             <Route path="/product/:id" element={<ProductDetails />} />
             <Route path="/login" element={<Login />} />
             <Route path="/register" element={<Register />} />
+            <Route path="/cart" element={<CartPage/>} />
           </Routes>
           <Footer />
         </myContext.Provider>

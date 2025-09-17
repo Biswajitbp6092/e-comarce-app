@@ -19,6 +19,11 @@ import ProductDetailsComponent from "./components/ProductDetailsComponent/Produc
 import Login from "./Pages/Login/Login";
 import Register from "./Pages/Register/Register";
 import CartPage from "./Pages/CartPage/CartPage";
+import Verify from "./Pages/Verify/Verify";
+
+
+import toast, { Toaster } from 'react-hot-toast';
+import ForgotPassword from "./Pages/ForgotPassword/ForgotPassword";
 
 const myContext = createContext();
 
@@ -37,11 +42,23 @@ function App() {
     setOpenCartPanel(newOpen);
   };
 
+
+  const openAlartBox=(status, msg)=>{
+    if(status==="Sucess"){
+      toast.success(msg)
+    }
+    if(status==="Error"){
+      toast.error(msg)
+    }
+    
+  }
+
   const values = {
     setOpenProductDetailsModal,
     setOpenCartPanel,
     toggleCartPanel,
     openCartPanel,
+    openAlartBox,
   };
   return (
     <>
@@ -55,10 +72,14 @@ function App() {
             <Route path="/login" element={<Login />} />
             <Route path="/register" element={<Register />} />
             <Route path="/cart" element={<CartPage/>} />
+            <Route path="/verify" element={<Verify/>} />
+            <Route path="/forgot-password" element={<ForgotPassword/>} />
           </Routes>
           <Footer />
         </myContext.Provider>
       </BrowserRouter>
+
+      <Toaster />
 
       <Dialog
         fullWidth={fullWidth}

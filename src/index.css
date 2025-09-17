@@ -262,3 +262,8 @@ input[type=nmber]::-webkit-outer-spin-button{
 .cartPanel .MuiPaper-root{ width: 400px; overflow: hidden;}
 
 #size-menu .MuiButtonBase-root{ font-size: 12px!important;}
+
+
+.otpBox input{ border: 1px solid rgba(0,0,0,0.3) !important; outline: 0 !important; border-radius: 4px !important;}
+.otpBox input:focus {border: 1px solid rgba(0,0,0,0.3) !important;}
+.otpPage .container{ height: 90vh; display: flex;}

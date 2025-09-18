@@ -71,6 +71,7 @@ h1, h2, h3, h4, h5, h6 { font-weight: 600;}
 .btn-org {background-color: #ff5252 !important; color: #ffffff !important; font-weight: 500 !important; font-size: 16px !important; padding: 7px 20px !important;}
 .btn-org:hover {background-color: #171717 !important; transition: all 0.3s linear;}
 .btn-lg{ font-size: 18px; padding: 10px 20px !important;}
+.btn-sm{ font-size: 12px !important; padding: 7px 20px !important;}
 
 .btn-border {background-color: none !important; color: #ff5252 !important; border: 1px solid #ff5252 !important; font-weight: 500 !important; font-size: 16px !important; padding: 7px 20px !important;}
 .btn-border:hover {background-color: #171717 !important; color: #ffffff !important; border: 1px solid #171717 !important; transition: all 0.3s linear;}

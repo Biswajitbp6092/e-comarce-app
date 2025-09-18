@@ -21,12 +21,12 @@ import Register from "./Pages/Register/Register";
 import CartPage from "./Pages/CartPage/CartPage";
 import Verify from "./Pages/Verify/Verify";
 
-
-import toast, { Toaster } from 'react-hot-toast';
+import toast, { Toaster } from "react-hot-toast";
 import ForgotPassword from "./Pages/ForgotPassword/ForgotPassword";
 import CheckOut from "./Pages/CheckOut/CheckOut";
 import MyAccount from "./Pages/MyAccount/MyAccount";
 import MyList from "./Pages/MyList/MyList";
+import Orders from "./Pages/Orders/Orders";
 
 const myContext = createContext();
 
@@ -45,16 +45,14 @@ function App() {
     setOpenCartPanel(newOpen);
   };
 
-
-  const openAlartBox=(status, msg)=>{
-    if(status==="Sucess"){
-      toast.success(msg)
+  const openAlartBox = (status, msg) => {
+    if (status === "Sucess") {
+      toast.success(msg);
     }
-    if(status==="Error"){
-      toast.error(msg)
+    if (status === "Error") {
+      toast.error(msg);
     }
-    
-  }
+  };
 
   const values = {
     setOpenProductDetailsModal,
@@ -76,12 +74,13 @@ function App() {
             <Route path="/product/:id" element={<ProductDetails />} />
             <Route path="/login" element={<Login />} />
             <Route path="/register" element={<Register />} />
-            <Route path="/cart" element={<CartPage/>} />
-            <Route path="/verify" element={<Verify/>} />
-            <Route path="/forgot-password" element={<ForgotPassword/>} />
-            <Route path="/checkout" element={<CheckOut/>} />
-            <Route path="/my-account" element={<MyAccount/>} />
-            <Route path="/my-list" element={<MyList/>} />
+            <Route path="/cart" element={<CartPage />} />
+            <Route path="/verify" element={<Verify />} />
+            <Route path="/forgot-password" element={<ForgotPassword />} />
+            <Route path="/checkout" element={<CheckOut />} />
+            <Route path="/my-account" element={<MyAccount />} />
+            <Route path="/my-list" element={<MyList />} />
+            <Route path="/my-orders" element={<Orders />} />
           </Routes>
           <Footer />
         </myContext.Provider>
@@ -115,8 +114,6 @@ function App() {
           </div>
         </DialogContent>
       </Dialog>
-
-     
     </>
   );
 }

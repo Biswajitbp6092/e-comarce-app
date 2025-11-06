@@ -34,8 +34,9 @@ function App() {
   const [openProductDetailsModal, setOpenProductDetailsModal] = useState(false);
   const [maxWidth, setMaxWidth] = useState("lg");
   const [fullWidth, setFullWidth] = useState(true);
-  const [openCartPanel, setOpenCartPanel] = useState(false);
   const [isLogin, setIsLogin] = useState(true);
+
+  const [openCartPanel, setOpenCartPanel] = useState(false);
 
   const handleCloseProductDetailsModal = () => {
     setOpenProductDetailsModal(false);

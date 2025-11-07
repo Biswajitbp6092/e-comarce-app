@@ -5,8 +5,11 @@ import { IoMdEye, IoMdEyeOff } from "react-icons/io";
 import { Link, useNavigate } from "react-router-dom";
 import { FcGoogle } from "react-icons/fc";
 import { myContext } from "../../App";
+import CircularProgress from "@mui/material/CircularProgress";
+import { postData } from "../../utlis/api";
 
 const Login = () => {
+  const [isLoading, setIsLoading] = useState(false);
   const [isPasswordShow, setIsPasswordShow] = useState(false);
   const [formFields, setFormFields] = useState({
     email: "",
@@ -15,11 +18,61 @@ const Login = () => {
 
   const context = useContext(myContext);
 
-  const histoty = useNavigate();
+  const navigate = useNavigate();
 
   const forGotPassword = () => {
-    histoty("/verify");
+    navigate("/verify");
     context.openAlartBox("Sucess", "OTP Send");
+  };
+
+  const onChangeInput = (e) => {
+    const { name, value } = e.target;
+    setFormFields(() => ({
+      ...formFields,
+      [name]: value,
+    }));
+  };
+
+  const validValue = Object.values(formFields).every((el) => el);
+
+  const handelSubmit = (e) => {
+    e.preventDefault();
+    setIsLoading(true);
+
+    if (formFields.email === "") {
+      context.openAlartBox("Error", "Please Enter email id");
+      return false;
+    }
+    if (formFields.password === "") {
+      context.openAlartBox("Error", "Please Enter password");
+      return false;
+    }
+
+    postData("/api/user/login", formFields, { withCredentials: true }).then((res) => {
+        console.log(res);
+
+        if (res?.error !== true) {
+          setIsLoading(false);
+          context.openAlartBox("Sucess", res?.message);
+
+          setFormFields({
+            email: "",
+            password: "",
+          });
+
+          // localStorage.setItem("userEmail", formFields.email);
+          localStorage.setItem("accessToken", res?.data?.accessToken);
+          localStorage.setItem("refreshToken", res?.data?.refreshToken);
+
+          context.setIsLogin(true);
+
+          navigate("/");
+        } else {
+          context.openAlartBox("Error", res?.message);
+          setIsLoading(false);
+        }
+      }
+    );
   };
 
   return (
@@ -30,7 +83,7 @@ const Login = () => {
             Login Your Account
           </h2>
 
-          <form action="" className="w-full mt-5">
+          <form action="" className="w-full mt-5" onSubmit={handelSubmit}>
             <div className="form-group w-full mb-5">
               <TextField
                 type="email"
@@ -38,7 +91,10 @@ const Login = () => {
                 label="E-mail id*"
                 variant="outlined"
                 className="w-full"
-                name="name"
+                name="email"
+                value={formFields.email}
+                disabled={isLoading === true ? true : false}
+                onChange={onChangeInput}
               />
             </div>
             <div className="form-group w-full mb-5 relative">
@@ -49,6 +105,9 @@ const Login = () => {
                 variant="outlined"
                 className="w-full"
                 name="password"
+                value={formFields.password}
+                disabled={isLoading === true ? true : false}
+                onChange={onChangeInput}
               />
               <Button
                 className="!absolute top-[10px] right-[10px] z-50 !w-[35px] !h-[35px] !min-w-[35px] !rounded-full !text-black opacity-75"
@@ -69,7 +128,20 @@ const Login = () => {
               Forget Password?
             </Link>
             <div className="flex items-center w-full mt-3 mb-3">
-              <Button className="btn-org btn-lg w-full">Submit</Button>
+              <Button
+                type="submit"
+                disabled={!validValue}
+                className="btn-org btn-lg w-full"
+              >
+                {isLoading ? (
+                  <CircularProgress
+                    color="inherit"
+                    style={{ width: "20px", height: "20px" }}
+                  />
+                ) : (
+                  "Submit"
+                )}
+              </Button>
             </div>
             <p>
               Not Registred?{" "}

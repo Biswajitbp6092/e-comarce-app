@@ -1,5 +1,5 @@
 import React, { useContext, useState } from "react";
-import { Link} from "react-router-dom";
+import { Link } from "react-router-dom";
 import Search from "../Search/Search";
 import Badge from "@mui/material/Badge";
 import { styled } from "@mui/material/styles";
@@ -18,6 +18,7 @@ import Divider from "@mui/material/Divider";
 import { BsBagCheck } from "react-icons/bs";
 import { FaRegHeart } from "react-icons/fa";
 import { IoIosLogOut } from "react-icons/io";
+import { fetchDataFromApi } from "../../utlis/api";
 
 const StyledBadge = styled(Badge)(({ theme }) => ({
   "& .MuiBadge-badge": {
@@ -39,6 +40,24 @@ const Header = () => {
   };
 
   const Context = useContext(myContext);
+
+  const logout = () => {
+    setAnchorEl(null);
+    fetchDataFromApi(
+      `/api/user/logout?token=${localStorage.getItem("accessToken")}`,
+      {
+        withCredentials: true,
+      }
+    ).then((res) => {
+      console.log(res);
+      if (res?.data.error === false) {
+        Context.setIsLogin(false);
+        localStorage.removeItem("accessToken");
+        localStorage.removeItem("refreshToken");
+      }
+    });
+  };
+
   return (
     <header className="header-section bg-white">
       <div className="top-strip py-2 border-t-2 border-b-2 border-gray-200">
@@ -110,10 +129,10 @@ const Header = () => {
                     </Button>
                     <div className="info flex flex-col">
                       <h4 className="leading-3 text-[14px] text-[rgba(0,0,0,0.7)] mb-0 font-[500] capitalize text-left justify-start">
-                        Biswajit Biswas
+                        {Context?.usesrData?.name}
                       </h4>
                       <p className="text-[13px] text-[rgba(0,0,0,0.7)]  !mb-0 !mt-0 font-[400] lowercase text-left justify-start">
-                        biswajitbp6092@gmail.com
+                       {Context?.usesrData?.email}
                       </p>
                     </div>
                   </Button>
@@ -182,10 +201,7 @@ const Header = () => {
                         <span className="text-[14px]"> my List</span>
                       </MenuItem>
                     </Link>
-                    <MenuItem
-                      onClick={handleClose}
-                      className="flex gap-2 !py-3"
-                    >
+                    <MenuItem onClick={logout} className="flex gap-2 !py-3">
                       <IoIosLogOut size={18} />{" "}
                       <span className="text-[14px]">Logout</span>
                     </MenuItem>

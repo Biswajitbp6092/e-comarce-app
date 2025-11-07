@@ -6,8 +6,11 @@ import { Link } from "react-router-dom";
 import { FcGoogle } from "react-icons/fc";
 import { postData } from "../../utlis/api";
 import { myContext } from "../../App";
+import CircularProgress from "@mui/material/CircularProgress";
+import { useNavigate } from "react-router-dom";
 
 const Register = () => {
+  const [isLoading, setIsLoading] = useState(false);
   const [isPasswordShow, setIsPasswordShow] = useState(false);
 
   const [formFields, setFormFields] = useState({
@@ -17,6 +20,7 @@ const Register = () => {
   });
 
   const context = useContext(myContext);
+  const navigate = useNavigate();
 
   const onChangeInput = (e) => {
     const { name, value } = e.target;
@@ -26,27 +30,42 @@ const Register = () => {
     }));
   };
 
+  const validValue = Object.values(formFields).every((el) => el);
+
   const handelSubmit = (e) => {
     e.preventDefault();
+    setIsLoading(true);
 
-    if(formFields.name === ""){
-      context.openAlartBox("Error", "Please add full name")
-      return false
+    if (formFields.name === "") {
+      context.openAlartBox("Error", "Please add full name");
+      return false;
     }
-     if(formFields.email === ""){
-      context.openAlartBox("Error", "Please Enter email id")
-      return false
+    if (formFields.email === "") {
+      context.openAlartBox("Error", "Please Enter email id");
+      return false;
     }
-     if(formFields.password === ""){
-      context.openAlartBox("Error", "Please Enter password")
-      return false
+    if (formFields.password === "") {
+      context.openAlartBox("Error", "Please Enter password");
+      return false;
     }
 
-
-    postData("/api/user/register", formFields).then((res)=>{
-      console.log(res)
+    postData("/api/user/register", formFields).then((res) => {
+      if (res?.error !== true) {
+        setIsLoading(false);
+        context.openAlartBox("Sucess", res?.message);
+        localStorage.setItem("userEmail", formFields.email);
+        setFormFields({
+          name: "",
+          email: "",
+          password: "",
+        });
+        navigate("/verify");
+      } else {
+        context.openAlartBox("Error", res?.message);
+        setIsLoading(false);
+      }
     });
-  }
+  };
 
   return (
     <section className="section py-10">
@@ -65,6 +84,8 @@ const Register = () => {
                 label="Full Name*"
                 variant="outlined"
                 className="w-full"
+                value={formFields.name}
+                disabled={isLoading === true ? true : false}
                 onChange={onChangeInput}
               />
             </div>
@@ -76,6 +97,8 @@ const Register = () => {
                 label="E-mail id*"
                 variant="outlined"
                 className="w-full"
+                value={formFields.email}
+                disabled={isLoading === true ? true : false}
                 onChange={onChangeInput}
               />
             </div>
@@ -87,6 +110,8 @@ const Register = () => {
                 label="Password*"
                 variant="outlined"
                 className="w-full"
+                value={formFields.password}
+                disabled={isLoading === true ? true : false}
                 onChange={onChangeInput}
               />
               <Button
@@ -101,7 +126,20 @@ const Register = () => {
               </Button>
             </div>
             <div className="flex items-center w-full mt-3 mb-3">
-              <Button type="submit" className="btn-org btn-lg w-full">Submit</Button>
+              <Button
+                type="submit"
+                disabled={!validValue}
+                className="btn-org btn-lg w-full flex gap-3"
+              >
+                {isLoading ? (
+                  <CircularProgress
+                    color="inherit"
+                    style={{ width: "20px", height: "20px" }}
+                  />
+                ) : (
+                  "Submit"
+                )}
+              </Button>
             </div>
             <p>
               Already have an account ! &nbsp;

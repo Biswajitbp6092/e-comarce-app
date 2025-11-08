@@ -17,18 +17,35 @@ const Verify = () => {
 
   const verifyOTP = (e) => {
     e.preventDefault();
-    postData("/api/user/verifyEmail", {
-      email: localStorage.getItem("userEmail"),
-      otp: otp,
-    }).then((res) => {
-      if (res?.error === false) {
-        context.openAlartBox("Sucess", res?.message);
-        localStorage.removeItem("userEmail");
-        navigate("/login");
-      } else {
-        context.openAlartBox("Error", res?.message);
-      }
-    });
+
+    const actionType = localStorage.getItem("actionType");
+
+    if (actionType !== "forgotPassword") {
+      postData("/api/user/verifyEmail", {
+        email: localStorage.getItem("userEmail"),
+        otp: otp,
+      }).then((res) => {
+        if (res?.error === false) {
+          context.openAlartBox("Sucess", res?.message);
+          localStorage.removeItem("userEmail");
+          navigate("/login");
+        } else {
+          context.openAlartBox("Error", res?.message);
+        }
+      });
+    } else {
+      postData("/api/user/verify-forgot-password-otp", {
+        email: localStorage.getItem("userEmail"),
+        otp: otp,
+      }).then((res) => {
+        if (res?.error === false) {
+          context.openAlartBox("Sucess", res?.message);
+          navigate("/forgot-password");
+        } else {
+          context.openAlartBox("Error", res?.message);
+        }
+      });
+    }
   };
 
   return (

@@ -20,9 +20,30 @@ const Login = () => {
 
   const navigate = useNavigate();
 
-  const forGotPassword = () => {
-    navigate("/verify");
-    context.openAlartBox("Sucess", "OTP Send");
+  const forGotPassword = (e) => {
+    e.preventDefault();
+    if (formFields.email === "") {
+      context.openAlartBox("Error", "Please Enter email id to reset password");
+      return false;
+    } else {
+      context.openAlartBox(
+        "Sucess",
+        `We have sent a password reset link to ${formFields.email}`
+      );
+      localStorage.setItem("userEmail", formFields.email);
+      localStorage.setItem("actionType", "forgotPassword");
+
+      postData("/api/user/forgot-password", {
+        email: formFields.email,
+      }).then((res) => {
+        if (res?.error === false) {
+          context.openAlartBox("Sucess", res?.message);
+          navigate("/verify");
+        } else {
+          context.openAlartBox("Error", res?.message);
+        }
+      });
+    }
   };
 
   const onChangeInput = (e) => {
@@ -48,7 +69,8 @@ const Login = () => {
       return false;
     }
 
-    postData("/api/user/login", formFields, { withCredentials: true }).then((res) => {
+    postData("/api/user/login", formFields, { withCredentials: true }).then(
+      (res) => {
         console.log(res);
 
         if (res?.error !== true) {
@@ -121,7 +143,7 @@ const Login = () => {
               </Button>
             </div>
             <Link
-              to="/verify"
+              to="#"
               onClick={forGotPassword}
               className="link cursor-pointer text-[14px] font-[600] pt-3"
             >

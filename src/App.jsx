@@ -36,7 +36,7 @@ function App() {
   const [maxWidth, setMaxWidth] = useState("lg");
   const [fullWidth, setFullWidth] = useState(true);
   const [isLogin, setIsLogin] = useState(false);
-  const [usesrData, setUserData] = useState(null);
+  const [userData, setUserData] = useState(null);
 
   const [openCartPanel, setOpenCartPanel] = useState(false);
 
@@ -52,7 +52,7 @@ function App() {
     const token = localStorage.getItem("accessToken");
     if(token!== undefined && token !== null && token !== ""){
       setIsLogin(true);
-      fetchDataFromApi(`/api/user/user-details?token=${token}`).then((res)=>{
+      fetchDataFromApi(`/api/user/user-details`).then((res)=>{
         console.log(res);
         setUserData(res?.data?.data);
         
@@ -80,7 +80,7 @@ function App() {
     openAlartBox,
     isLogin,
     setIsLogin,
-    usesrData,
+    userData,
     setUserData
   };
   return (

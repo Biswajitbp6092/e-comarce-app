@@ -1,5 +1,5 @@
 import React, { useContext, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import Search from "../Search/Search";
 import Badge from "@mui/material/Badge";
 import { styled } from "@mui/material/styles";
@@ -40,6 +40,7 @@ const Header = () => {
   };
 
   const Context = useContext(myContext);
+  const navigate = useNavigate();
 
   const logout = () => {
     setAnchorEl(null);
@@ -54,6 +55,7 @@ const Header = () => {
         Context.setIsLogin(false);
         localStorage.removeItem("accessToken");
         localStorage.removeItem("refreshToken");
+        navigate("/");
       }
     });
   };
@@ -129,10 +131,10 @@ const Header = () => {
                     </Button>
                     <div className="info flex flex-col">
                       <h4 className="leading-3 text-[14px] text-[rgba(0,0,0,0.7)] mb-0 font-[500] capitalize text-left justify-start">
-                        {Context?.usesrData?.name}
+                        {Context?.userData?.name}
                       </h4>
                       <p className="text-[13px] text-[rgba(0,0,0,0.7)]  !mb-0 !mt-0 font-[400] lowercase text-left justify-start">
-                       {Context?.usesrData?.email}
+                        {Context?.userData?.email}
                       </p>
                     </div>
                   </Button>

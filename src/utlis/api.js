@@ -54,3 +54,20 @@ export const uploadImage = async (url, updatedData) => {
   });
   return response;
 };
+
+
+export const editData = async (url, updatedData) => {
+  const params = {
+    headers: {
+      Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+      "Content-Type": "application/json",
+    },
+  };
+  var response;
+  await axios.put(apiUrl + url, updatedData, params).then((res) => {
+    console.log(res);
+    response = res;
+  });
+  return response;
+};
+

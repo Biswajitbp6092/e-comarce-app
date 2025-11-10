@@ -142,7 +142,7 @@ const MyAccount = () => {
       return false;
     }
 
-    postData(`/api/user/reset-password`, changePassword, {withCredentials: true,}).then((res)=> {
+    postData(`/api/user/change-password`, changePassword, {withCredentials: true,}).then((res)=> {
 
       if (res?.error !== true) {
         setIsLoading2(false);

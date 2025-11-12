@@ -53,8 +53,16 @@ function App() {
     if(token!== undefined && token !== null && token !== ""){
       setIsLogin(true);
       fetchDataFromApi(`/api/user/user-details`).then((res)=>{
-        console.log(res);
         setUserData(res?.data?.data);
+        if(res?.data?.data?.error===true){
+          if(res?.data?.data?.message === "you have not login"){
+            localStorage.removeItem("accessToken");
+            localStorage.removeItem("refreshToken")
+            openAlartBox("Error","your Sesion is closed please login again");
+            window.location.href="/login"
+            setIsLogin(false);
+          }
+        }
         
       })
     }else{

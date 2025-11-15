@@ -275,3 +275,9 @@ input[type=nmber]::-webkit-outer-spin-button{
 
 
 button.MuiCircularProgress-root{ width: 100px !important; height: 100px !important;}
+
+.react-international-phone-input{ width: 100% !important; font-size: 16px !important;}
+.react-international-phone-country-selector-button{ width: 55px !important;}
+.react-international-phone-input-container{ border: 1px solid rgba(0,0,0,0.1) !important;}
+
+.MuiDialog-paper{width: 800px !important; max-width: 800px !important;}

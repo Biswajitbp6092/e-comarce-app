@@ -15,8 +15,7 @@ const MyAccount = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [isLoading2, setIsLoading2] = useState(false);
   const [userId, setUserId] = useState("");
-  const [isChangePassowrdFormShow, setIsChangePassowrdFormShow] =
-    useState(false);
+  const [isChangePassowrdFormShow, setIsChangePassowrdFormShow] = useState(false);
 
   const [formFields, setFormFields] = useState({
     name: "",
@@ -57,6 +56,7 @@ const MyAccount = () => {
 
   const onChangeInput = (e) => {
     const { name, value } = e.target;
+    
     setFormFields(() => ({
       ...formFields,
       [name]: value,

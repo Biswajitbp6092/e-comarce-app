@@ -15,18 +15,13 @@ const ProdutsSlider = (props) => {
         modules={[Navigation]}
         className="mySwiper"
       >
-        <SwiperSlide><ProductsItems/></SwiperSlide>
-        <SwiperSlide><ProductsItems/></SwiperSlide>
-        <SwiperSlide><ProductsItems/></SwiperSlide>
-        <SwiperSlide><ProductsItems/></SwiperSlide>
-        <SwiperSlide><ProductsItems/></SwiperSlide>
-        <SwiperSlide><ProductsItems/></SwiperSlide>
-        <SwiperSlide><ProductsItems/></SwiperSlide>
-        <SwiperSlide><ProductsItems/></SwiperSlide>
-        <SwiperSlide><ProductsItems/></SwiperSlide>
-        <SwiperSlide><ProductsItems/></SwiperSlide>
-        <SwiperSlide><ProductsItems/></SwiperSlide>
-
+        {props?.data?.map((item, index) => {
+          return (
+            <SwiperSlide key ={index}>
+              <ProductsItems item={item}/>
+            </SwiperSlide>
+          );
+        })}
       </Swiper>
     </div>
   );

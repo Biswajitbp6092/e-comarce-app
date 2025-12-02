@@ -1,4 +1,4 @@
-import React, { createContext, useEffect, useState } from "react";
+import React, { createContext, use, useEffect, useState } from "react";
 import "./App.css";
 import Header from "./components/Header/Header";
 import Footer from "./components/Footer/Footer";
@@ -33,44 +33,64 @@ import Address from "./Pages/MyAccount/address";
 const myContext = createContext();
 
 function App() {
-  const [openProductDetailsModal, setOpenProductDetailsModal] = useState(false);
+  const [openProductDetailsModal, setOpenProductDetailsModal] = useState({
+    open: false,
+    item: {},
+  });
   const [maxWidth, setMaxWidth] = useState("lg");
   const [fullWidth, setFullWidth] = useState(true);
   const [isLogin, setIsLogin] = useState(false);
   const [userData, setUserData] = useState(null);
+  const [catData, setCatData] = useState([]);
 
   const [openCartPanel, setOpenCartPanel] = useState(false);
 
+  const handleOpenProductDetailsModal = (status, item) => {
+    setOpenProductDetailsModal({
+      open: status,
+      item: item,
+    });
+  };
+
   const handleCloseProductDetailsModal = () => {
-    setOpenProductDetailsModal(false);
+    setOpenProductDetailsModal({
+      open: false,
+      item: {},
+    });
   };
 
   const toggleCartPanel = (newOpen) => () => {
     setOpenCartPanel(newOpen);
   };
 
-  useEffect(()=>{
+  useEffect(() => {
     const token = localStorage.getItem("accessToken");
-    if(token!== undefined && token !== null && token !== ""){
+    if (token !== undefined && token !== null && token !== "") {
       setIsLogin(true);
-      fetchDataFromApi(`/api/user/user-details`).then((res)=>{
+      fetchDataFromApi(`/api/user/user-details`).then((res) => {
         setUserData(res?.data?.data);
-        if(res?.data?.data?.error===true){
-          if(res?.data?.data?.message === "you have not login"){
+        if (res?.data?.data?.error === true) {
+          if (res?.data?.data?.message === "you have not login") {
             localStorage.removeItem("accessToken");
-            localStorage.removeItem("refreshToken")
-            openAlartBox("Error","your Sesion is closed please login again");
-            window.location.href="/login"
+            localStorage.removeItem("refreshToken");
+            openAlartBox("Error", "your Sesion is closed please login again");
+            window.location.href = "/login";
             setIsLogin(false);
           }
         }
-        
-      })
-    }else{
+      });
+    } else {
       setIsLogin(false);
     }
+  }, [isLogin]);
 
-  },[isLogin])
+  useEffect(() => {
+    fetchDataFromApi(`/api/category`).then((res) => {
+      if (res?.data?.error === false) {
+        setCatData(res?.data?.data);
+      }
+    });
+  }, []);
 
   const openAlartBox = (status, msg) => {
     if (status === "Sucess") {
@@ -83,6 +103,7 @@ function App() {
 
   const values = {
     setOpenProductDetailsModal,
+    handleOpenProductDetailsModal,
     setOpenCartPanel,
     toggleCartPanel,
     openCartPanel,
@@ -90,7 +111,9 @@ function App() {
     isLogin,
     setIsLogin,
     userData,
-    setUserData
+    setUserData,
+    setCatData,
+    catData,
   };
   return (
     <>
@@ -110,7 +133,7 @@ function App() {
             <Route path="/my-account" element={<MyAccount />} />
             <Route path="/my-list" element={<MyList />} />
             <Route path="/my-orders" element={<Orders />} />
-            <Route path="/address" element={<Address/>} />
+            <Route path="/address" element={<Address />} />
           </Routes>
           <Footer />
         </myContext.Provider>
@@ -121,7 +144,7 @@ function App() {
       <Dialog
         fullWidth={fullWidth}
         maxWidth={maxWidth}
-        open={openProductDetailsModal}
+        open={openProductDetailsModal.open}
         onClose={handleCloseProductDetailsModal}
         aria-labelledby="alert-dialog-title"
         aria-describedby="alert-dialog-description"
@@ -135,12 +158,16 @@ function App() {
             >
               <IoClose size={32} />
             </Button>
-            <div className="col1 w-[40%] px-3">
-              <ProductZoom />
-            </div>
-            <div className="col2 w-[60%] py-8 px-8 pr-16 productContain">
-              <ProductDetailsComponent />
-            </div>
+            {openProductDetailsModal?.item?.length !== 0 && (
+              <>
+                <div className="col1 w-[40%] px-3">
+                  <ProductZoom images={openProductDetailsModal?.item?.images}/>
+                </div>
+                <div className="col2 w-[60%] py-8 px-8 pr-16 productContain">
+                  <ProductDetailsComponent item={openProductDetailsModal?.item} />
+                </div>
+              </>
+            )}
           </div>
         </DialogContent>
       </Dialog>

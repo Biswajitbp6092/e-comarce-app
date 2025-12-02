@@ -4,12 +4,10 @@ import Drawer from "@mui/material/Drawer";
 import { IoMdClose } from "react-icons/io";
 import CategoryCollapse from "../../CategoryCollapse/CategoryCollapse";
 
-const CategoryPanel = ({ isOpenCatPanel, setIsOpenCatPanel }) => {
+const CategoryPanel = (props) => {
   const toggleDrawer = (newOpen) => () => {
-    setIsOpenCatPanel(newOpen);
+    props.setIsOpenCatPanel(newOpen);
   };
-
-
 
   const DrawerList = (
     <Box sx={{ width: 250 }} role="presentation" className="categoryPanel">
@@ -18,15 +16,15 @@ const CategoryPanel = ({ isOpenCatPanel, setIsOpenCatPanel }) => {
         <IoMdClose
           size={24}
           onClick={toggleDrawer(false)}
-          className="cursor-pointer"
+          className="cursor-pointer text-[20px]"
         />
       </h3>
-     <CategoryCollapse/>
+      {props.data?.length !== 0 && <CategoryCollapse data={props?.data}/>}
     </Box>
   );
 
   return (
-    <Drawer open={isOpenCatPanel} onClose={toggleDrawer(false)}>
+    <Drawer open={props.isOpenCatPanel} onClose={toggleDrawer(false)}>
       {DrawerList}
     </Drawer>
   );

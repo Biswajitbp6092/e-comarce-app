@@ -1,4 +1,4 @@
-import React from "react";
+import React, { use, useContext, useEffect } from "react";
 import { useState } from "react";
 import Button from "@mui/material/Button";
 import { RiMenu2Fill } from "react-icons/ri";
@@ -7,9 +7,18 @@ import { Link } from "react-router-dom";
 import { GoRocket } from "react-icons/go";
 import CategoryPanel from "./CategoryPanel";
 import "../Header.css";
+import { myContext } from "../../../App";
 
 const Navigation = () => {
   const [isOpenCatPanel, setIsOpenCatPanel] = useState(false);
+  const [catData, setCatData] = useState([]);
+
+  const context = useContext(myContext);
+
+  useEffect(() => {
+    setCatData(context?.catData);
+  }, [context?.catData]);
+
   const openCategoryPanel = () => {
     setIsOpenCatPanel(true);
   };
@@ -39,142 +48,67 @@ const Navigation = () => {
                   </Button>
                 </Link>
               </li>
-              <li className="list-none relative">
-                <Link to="/productlisting" className="link transition text-base font-[500]">
-                  <Button className="link transition !font-[500] !text-[rgba(0,0,0,0.7)] hover:!text-[#ff5252] !py-4 !normal-case">
-                    Fashion
-                  </Button>
-                </Link>
-                <div className="submenu absolute top-[120%] left-[0%] min-w-[150px] bg-white shadow-md opacity-0 transition-all">
-                  <ul>
-                    <li className="list-none w-full relative">
-                      <Link to="/fashion" className="w-full">
-                        <Button className="!text-[rgba(0,0,0,0.8)] !normal-case w-full !text-left !justify-start !rounded-none">
-                          Men
-                        </Button>
-                        <div className="submenu absolute top-[0%] left-[100%] min-w-[150px] bg-white shadow-md opacity-0 transition-all">
-                          <ul>
-                            <li className="list-none w-full">
-                              <Link to="/fashion" className="w-full">
-                                <Button className="!text-[rgba(0,0,0,0.8)] !normal-case w-full !text-left !justify-start !rounded-none">
-                                  T-shirt
-                                </Button>
-                              </Link>
-                            </li>
-                            <li className="list-none w-full">
-                              <Link to="/fashion" className="w-full">
-                                <Button className="!text-[rgba(0,0,0,0.8)] !normal-case w-full !text-left !justify-start !rounded-none">
-                                  Jeans
-                                </Button>
-                              </Link>
-                            </li>
 
-                            <li className="list-none w-full">
-                              <Link to="/fashion" className="w-full">
-                                <Button className="!text-[rgba(0,0,0,0.8)] !normal-case w-full !text-left !justify-start !rounded-none">
-                                  Footwear
-                                </Button>
-                              </Link>
-                            </li>
-                            <li className="list-none w-full">
-                              <Link to="/fashion" className="w-full">
-                                <Button className="!text-[rgba(0,0,0,0.8)] !normal-case w-full !text-left !justify-start !rounded-none">
-                                  Watch
-                                </Button>
-                              </Link>
-                            </li>
-                            <li className="list-none w-full">
-                              <Link to="/fashion" className="w-full">
-                                <Button className="!text-[rgba(0,0,0,0.8)] !normal-case w-full !text-left !justify-start !rounded-none">
-                                  Pents
-                                </Button>
-                              </Link>
-                            </li>
+              {catData?.length !== 0 &&
+                catData?.map((cat, index) => {
+                  return (
+                    <li className="list-none relative" key={index}>
+                      <Link
+                        to="/productlisting"
+                        className="link transition text-base font-[500]"
+                      >
+                        <Button className="link transition !font-[500] !text-[rgba(0,0,0,0.7)] hover:!text-[#ff5252] !py-4 !normal-case">
+                          {cat?.name}
+                        </Button>
+                      </Link>
+                      {cat?.children?.length !== 0 && (
+                        <div className="submenu absolute top-[120%] left-[0%] min-w-[150px] bg-white shadow-md opacity-0 transition-all">
+                          <ul>
+                            {cat?.children?.map((subCat, subIndex) => {
+                              return (
+                                <li
+                                  className="list-none w-full relative"
+                                  key={subIndex}
+                                >
+                                  <Link to="/fashion" className="w-full">
+                                    <Button className="!text-[rgba(0,0,0,0.8)] !normal-case w-full !text-left !justify-start !rounded-none">
+                                      {subCat?.name}
+                                    </Button>
+                                    {subCat?.children?.length !== 0 && (
+                                      <div className="submenu absolute top-[0%] left-[100%] min-w-[150px] bg-white shadow-md opacity-0 transition-all">
+                                        <ul>
+                                          {subCat?.children?.map(
+                                            (thirdLavelCat, index__) => {
+                                              return (
+                                                <li
+                                                  className="list-none w-full"
+                                                  key={index__}
+                                                >
+                                                  <Link
+                                                    to="/fashion"
+                                                    className="w-full"
+                                                  >
+                                                    <Button className="!text-[rgba(0,0,0,0.8)] !normal-case w-full !text-left !justify-start !rounded-none">
+                                                      {thirdLavelCat?.name}
+                                                    </Button>
+                                                  </Link>
+                                                </li>
+                                              );
+                                            }
+                                          )}
+                                        </ul>
+                                      </div>
+                                    )}
+                                  </Link>
+                                </li>
+                              );
+                            })}
                           </ul>
                         </div>
-                      </Link>
+                      )}
                     </li>
-                    <li className="list-none w-full">
-                      <Link to="/fashion" className="w-full">
-                        <Button className="!text-[rgba(0,0,0,0.8)] !normal-case w-full !text-left !justify-start !rounded-none">
-                          Women
-                        </Button>
-                      </Link>
-                    </li>
-
-                    <li className="list-none w-full">
-                      <Link to="/fashion" className="w-full">
-                        <Button className="!text-[rgba(0,0,0,0.8)] !normal-case w-full !text-left !justify-start !rounded-none">
-                          Kides
-                        </Button>
-                      </Link>
-                    </li>
-                    <li className="list-none w-full">
-                      <Link to="/fashion" className="w-full">
-                        <Button className="!text-[rgba(0,0,0,0.8)] !normal-case w-full !text-left !justify-start !rounded-none">
-                          Girls
-                        </Button>
-                      </Link>
-                    </li>
-                    <li className="list-none w-full">
-                      <Link to="/fashion" className="w-full">
-                        <Button className="!text-[rgba(0,0,0,0.8)] !normal-case w-full !text-left !justify-start !rounded-none">
-                          Boys
-                        </Button>
-                      </Link>
-                    </li>
-                  </ul>
-                </div>
-              </li>
-              <li className="list-none">
-                <Link to="/" className="link transition text-base font-[500]">
-                  <Button className="link transition !font-[500] !text-[rgba(0,0,0,0.7)] hover:!text-[#ff5252] !py-4 !normal-case">
-                    Electronics
-                  </Button>
-                </Link>
-              </li>
-              <li className="list-none">
-                <Link to="/" className="link transition text-base font-[500]">
-                  <Button className="link transition !font-[500] !text-[rgba(0,0,0,0.7)] hover:!text-[#ff5252] !py-4 !normal-case">
-                    Bages
-                  </Button>
-                </Link>
-              </li>
-              <li className="list-none">
-                <Link to="/" className="link transition text-base font-[500]">
-                  <Button className="link transition !font-[500] !text-[rgba(0,0,0,0.7)] hover:!text-[#ff5252] !py-4 !normal-case">
-                    Footwear
-                  </Button>
-                </Link>
-              </li>
-              <li className="list-none">
-                <Link to="/" className="link transition text-base font-[500]">
-                  <Button className="link transition !font-[500] !text-[rgba(0,0,0,0.7)] hover:!text-[#ff5252] !py-4 !normal-case">
-                    Groceries
-                  </Button>
-                </Link>
-              </li>
-              <li className="list-none">
-                <Link to="/" className="link transition text-base font-[500]">
-                  <Button className="link transition !font-[500] !text-[rgba(0,0,0,0.7)] hover:!text-[#ff5252] !py-4 !normal-case">
-                    Beauty
-                  </Button>
-                </Link>
-              </li>
-              <li className="list-none">
-                <Link to="/" className="link transition text-base font-[500]">
-                  <Button className="link transition !font-[500] !text-[rgba(0,0,0,0.7)] hover:!text-[#ff5252] !py-4 !normal-case">
-                    Wellness
-                  </Button>
-                </Link>
-              </li>
-              <li className="list-none">
-                <Link to="/" className="link transition text-base font-[500]">
-                  <Button className="link transition !font-[500] !text-[rgba(0,0,0,0.7)] hover:!text-[#ff5252] !py-4 !normal-case">
-                    Jewellery
-                  </Button>
-                </Link>
-              </li>
+                  );
+                })}
             </ul>
           </div>
           <div className="col_3 w-[20%]">
@@ -185,10 +119,14 @@ const Navigation = () => {
           </div>
         </div>
       </nav>
-      <CategoryPanel
-        isOpenCatPanel={isOpenCatPanel}
-        setIsOpenCatPanel={setIsOpenCatPanel}
-      />
+
+      {catData?.length !== 0 && (
+        <CategoryPanel
+          isOpenCatPanel={isOpenCatPanel}
+          setIsOpenCatPanel={setIsOpenCatPanel}
+          data={catData}
+        />
+      )}
     </>
   );
 };

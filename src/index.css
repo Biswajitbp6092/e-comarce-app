@@ -281,3 +281,4 @@ button.MuiCircularProgress-root{ width: 100px !important; height: 100px !importa
 .react-international-phone-input-container{ border: 1px solid rgba(0,0,0,0.1) !important;}
 
 .MuiDialog-paper{width: 800px !important; max-width: 800px !important;}
+.productDetailsModal .MuiDialog-paper{width:1200px !important; max-width: 1200px !important;}

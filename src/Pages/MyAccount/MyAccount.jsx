@@ -93,7 +93,7 @@ const MyAccount = () => {
     editData(`/api/user/${userId}`, formFields, {
       withCredentials: true,
     }).then((res) => {
-      console.log(res);
+     
 
       if (res?.error !== true) {
         setIsLoading(false);

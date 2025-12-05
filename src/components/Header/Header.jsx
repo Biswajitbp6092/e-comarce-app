@@ -50,7 +50,7 @@ const Header = () => {
         withCredentials: true,
       }
     ).then((res) => {
-      console.log(res);
+     
       if (res?.data.error === false) {
         Context.setIsLogin(false);
         localStorage.removeItem("accessToken");
@@ -61,7 +61,7 @@ const Header = () => {
   };
 
   return (
-    <header className="header-section bg-white">
+    <header className="header-section bg-white sticky -top-[70px] z-70 shadow-sm">
       <div className="top-strip py-2 border-t-2 border-b-2 border-gray-200">
         <div className="container">
           <div className="flex items-center justify-between">
@@ -100,7 +100,7 @@ const Header = () => {
           <div className="col1 w-[25%]">
             <Link to="/">
               {/* <h2 className="text-[22px] font-bold">ShopMate</h2> */}
-              <img src="/logo.jpg" alt="" />
+              <img src="/logo.png" alt="" className="w-[180px]" />
             </Link>
           </div>
 

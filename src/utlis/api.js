@@ -55,7 +55,6 @@ export const uploadImage = async (url, updatedData) => {
   return response;
 };
 
-
 export const editData = async (url, updatedData) => {
   const params = {
     headers: {
@@ -65,22 +64,19 @@ export const editData = async (url, updatedData) => {
   };
   var response;
   await axios.put(apiUrl + url, updatedData, params).then((res) => {
-    console.log(res);
     response = res;
   });
   return response;
 };
 
-
-export const deleteData = async (url)=>{
+export const deleteData = async (url) => {
   const params = {
-      headers: {
-        Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
-        "Content-Type": "application/json",
-      },
-    };
+    headers: {
+      Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+      "Content-Type": "application/json",
+    },
+  };
 
-
-  const {res} =await axios.delete(apiUrl + url,params)
+  const { res } = await axios.delete(apiUrl + url, params);
   return res;
-}
+};

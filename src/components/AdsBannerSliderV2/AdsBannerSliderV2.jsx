@@ -8,28 +8,21 @@ import BannerBoxAds from "../BannerBoxAds/BannerBoxAds";
 const AdsBannerSliderV2 = (props) => {
   return (
     <div className="py-5 w-full">
-      <Swiper 
+      <Swiper
         slidesPerView={props.items}
         spaceBetween={10}
         navigation={true}
         modules={[Navigation]}
         className="smallBtn"
       >
-        <SwiperSlide>
-          <BannerBoxAds info="left" images={"https://demos.codezeel.com/prestashop/PRS21/PRS210502/img/cms/sub-banner-1.jpg"} link={"/"} />
-        </SwiperSlide>
-        <SwiperSlide>
-          <BannerBoxAds info="right" images={"https://demos.codezeel.com/prestashop/PRS21/PRS210502/img/cms/sub-banner-2.jpg"}   link={"/"} />
-        </SwiperSlide>
-        <SwiperSlide>
-          <BannerBoxAds info="left" images={"https://demos.codezeel.com/prestashop/PRS21/PRS210502/img/cms/sub-banner-1.jpg"} link={"/"} />
-        </SwiperSlide>
-        <SwiperSlide>
-          <BannerBoxAds info="left" images={"https://demos.codezeel.com/prestashop/PRS21/PRS210502/img/cms/sub-banner-1.jpg"} link={"/"} />
-        </SwiperSlide>
-        <SwiperSlide>
-          <BannerBoxAds info="left" images={"https://demos.codezeel.com/prestashop/PRS21/PRS210502/img/cms/sub-banner-1.jpg"} link={"/"} />
-        </SwiperSlide>
+        {props?.data?.map((item, index) => {
+          return (
+            <SwiperSlide key={index}>
+              <BannerBoxAds info={item?.alignInfo} item={item} images={item?.images[0]} link={"/"}
+              />
+            </SwiperSlide>
+          );
+        })}
       </Swiper>
     </div>
   );

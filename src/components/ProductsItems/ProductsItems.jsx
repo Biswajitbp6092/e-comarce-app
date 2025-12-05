@@ -28,7 +28,7 @@ const ProductsItems = (props) => {
           </div>
         </Link>
         <span className="discount flex items-center absolute top-[10px] left-[10px] z-5 bg-[#ff5252] text-white rounded-lg p-1 text-[12px] font-[500]">
-          {props?.item?.discount}% Off
+          {props?.item?.discount}% 
         </span>
 
         <div className="actions absolute top-[-15px] right-[5px] z-5 flex items-center gap-2 flex-col w-[50px] transition-all duration-300 group-hover:top-[15px] opacity-0 group-hover:opacity-100">
@@ -44,7 +44,7 @@ const ProductsItems = (props) => {
         </div>
       </div>
       <div className="info p-3 py-5">
-        <h6 className="text-[12px] text-gray-600 font-light">
+        <h6 className="text-[12px] text-gray-600 font-light capitalize">
          {props?.item?.brand}
         </h6>
         <h3 className="text-[14px] title mt-1 font-[400] mb-1 text-[rgba(30,30,30,0.9)]">

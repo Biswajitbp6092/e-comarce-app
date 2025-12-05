@@ -55,14 +55,13 @@ const ForgotPassword = () => {
     }
 
     postData(`/api/user/reset-password`, formFields).then((res) => {
-      console.log(res);
       if (res?.error === false) {
         localStorage.removeItem("userEmail");
         localStorage.removeItem("actionType");
         setIsLoading(false);
         navigate("/login");
         context.openAlartBox("Sucess", res?.message);
-      }else{
+      } else {
         context.openAlartBox("Error", res?.message);
         setIsLoading(false);
       }

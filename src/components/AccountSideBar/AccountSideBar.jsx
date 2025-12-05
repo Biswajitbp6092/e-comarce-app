@@ -11,7 +11,6 @@ import CircularProgress from "@mui/material/CircularProgress";
 import { uploadImage } from "../../utlis/api";
 import { LuMapPinPlusInside } from "react-icons/lu";
 
-
 const AccountSideBar = () => {
   const [previews, setPreviews] = useState([]);
   const [uploading, setUploading] = useState(false);
@@ -38,7 +37,6 @@ const AccountSideBar = () => {
       setPreviews([]);
       const files = e.target.files;
       setUploading(true);
-      console.log(files);
 
       for (let i = 0; i < files.length; i++) {
         if (
@@ -63,14 +61,14 @@ const AccountSideBar = () => {
         uploadImage("/api/user/user-avatar", formData).then((res) => {
           setUploading(false);
           let avatar = [];
-          console.log(res?.data?.avatar);
+
           avatar.push(res?.data?.avatar);
           setPreviews(avatar);
-          console.log(res);
+          
         });
       }
     } catch (error) {
-      console.log(error);
+     
     }
   };
 

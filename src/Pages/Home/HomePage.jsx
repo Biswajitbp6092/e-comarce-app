@@ -18,49 +18,55 @@ import BannerBoxAds from "../../components/BannerBoxAds/BannerBoxAds";
 import AdsBannerSliderV2 from "../../components/AdsBannerSliderV2/AdsBannerSliderV2";
 import { myContext } from "../../App";
 import { fetchDataFromApi } from "../../utlis/api";
+import ProductLoading from "../../components/ProductLoading/ProductLoading";
 
 const HomePage = () => {
   const [value, setValue] = useState(0);
-  // const [homeSlidesData, setHomeSlidesData] = useState([]);
+  const [homeSlidesData, setHomeSlidesData] = useState([]);
   const [popularProductsData, setPopularProductsData] = useState([]);
   const [productData, setAllProductData] = useState([]);
   const [featuredProduct, setFeaturedProduct] = useState([]);
+  const [bannerV1Data, setBannerV1Data] = useState([]);
 
   const context = useContext(myContext);
 
   useEffect(() => {
-    // fetchDataFromApi("/api/homeSlides").then((res)=>{
-    //   setHomeSlidesData(res?.data?.data)
-    // })
-    fetchDataFromApi("/api/product/getAllProducts").then((res)=>{
-      if(res?.data?.error === false){
-        setAllProductData(res?.data?.products)
+    fetchDataFromApi("/api/homeSlides").then((res) => {
+      setHomeSlidesData(res?.data?.data);
+    });
+    fetchDataFromApi("/api/product/getAllProducts").then((res) => {
+      if (res?.data?.error === false) {
+        setAllProductData(res?.data?.products);
       }
-    })
-    fetchDataFromApi("/api/product/getAllFeaturedProduct").then((res)=>{
-      if(res?.data?.error === false){
-        setFeaturedProduct(res?.data?.products)
+    });
+    fetchDataFromApi("/api/product/getAllFeaturedProduct").then((res) => {
+      if (res?.data?.error === false) {
+        setFeaturedProduct(res?.data?.products);
       }
-    })
+    });
+    fetchDataFromApi(`/api/bannerV1`).then((res) => {
+      console.log("banner", res)
+      setBannerV1Data(res?.data?.data);
+    });
+  },);
 
-   
-  });
-
-  useEffect(()=>{
-    fetchDataFromApi(`/api/product/getAllProductByCatId/${context?.catData[0]?._id}`).then((res) => {     
+  useEffect(() => {
+    fetchDataFromApi(
+      `/api/product/getAllProductByCatId/${context?.catData[0]?._id}`
+    ).then((res) => {
       if (res?.data?.error === false) {
         setPopularProductsData(res?.data?.products);
       }
     });
-
-  },[context?.catData])
+  }, [context?.catData]);
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };
 
   const filterByCatId = (id) => {
-    fetchDataFromApi(`/api/product/getAllProductByCatId/${id}`).then((res) => {     
+    setPopularProductsData([]);
+    fetchDataFromApi(`/api/product/getAllProductByCatId/${id}`).then((res) => {
       if (res?.data?.error === false) {
         setPopularProductsData(res?.data?.products);
       }
@@ -69,28 +75,8 @@ const HomePage = () => {
 
   return (
     <>
-      <HomeSlider />
-      <section className="py-6">
-        <div className="container flex gap-5">
-          <div className="part1 w-[70%] overflow-hidden">
-            <HomeSliderAds />
-          </div>
-          <div className="part2 w-[30%] flex items-center gap-5 justify-between flex-col">
-            <BannerBoxAds
-              info="left"
-              images={
-                "https://demos.codezeel.com/prestashop/PRS21/PRS210502/img/cms/sub-banner-1.jpg"
-              }
-            />
-            <BannerBoxAds
-              info="right"
-              images={
-                "https://demos.codezeel.com/prestashop/PRS21/PRS210502/img/cms/sub-banner-2.jpg"
-              }
-            />
-          </div>
-        </div>
-      </section>
+      {homeSlidesData?.length !== 0 && <HomeSlider data={homeSlidesData} />}
+
       {context?.catData?.length !== 0 && (
         <HomeCatSlider data={context?.catData} />
       )}
@@ -113,7 +99,8 @@ const HomePage = () => {
                 scrollButtons="auto"
                 aria-label="scrollable auto tabs example"
               >
-                {context?.catData?.length !== 0 && context?.catData?.map((cat, index) => {
+                {context?.catData?.length !== 0 &&
+                  context?.catData?.map((cat, index) => {
                     return (
                       <Tab
                         label={cat?.name}
@@ -124,11 +111,34 @@ const HomePage = () => {
               </Tabs>
             </div>
           </div>
-          {
-            popularProductsData?.length !== 0 && <ProdutsSlider items={6} data={popularProductsData} />
-          }
-         
-          
+
+          {popularProductsData.length === 0 && <ProductLoading />}
+
+          {popularProductsData?.length !== 0 && (
+            <ProdutsSlider items={6} data={popularProductsData} />
+          )}
+        </div>
+      </section>
+
+      <section className="py-6">
+        <div className="container flex gap-5">
+          <div className="part1 w-[70%] overflow-hidden">
+            {productData?.length !== 0 && <HomeSliderAds data={productData} />}
+          </div>
+          <div className="part2 w-[30%] flex items-center gap-5 justify-between flex-col">
+            <BannerBoxAds
+              info="left"
+              images={
+                "https://demos.codezeel.com/prestashop/PRS21/PRS210502/img/cms/sub-banner-1.jpg"
+              }
+            />
+            <BannerBoxAds
+              info="right"
+              images={
+                "https://demos.codezeel.com/prestashop/PRS21/PRS210502/img/cms/sub-banner-2.jpg"
+              }
+            />
+          </div>
         </div>
       </section>
       <section className="py-4 mt-0 bg-white ">
@@ -150,26 +160,34 @@ const HomePage = () => {
             </div>
           </div>
 
-          <AdsBannerSliderV2 items={4} />
+          {
+            bannerV1Data?.length !== 0 &&  <AdsBannerSliderV2 items={4} data={bannerV1Data} />
+          }
+
+         
         </div>
       </section>
       <section className="py-5 pt-0 bg-white">
         <div className="container">
           <h2 className="text-[20px] font-600]">Latest Products</h2>
-          {
-            productData?.length !== 0 && <ProdutsSlider items={6} data={productData} />
-          }
-         
+
+          {productData?.length === 0 && <ProductLoading />}
+          {productData?.length !== 0 && (
+            <ProdutsSlider items={6} data={productData} />
+          )}
+
           <AdsBannerSlider items={3} />
         </div>
       </section>
       <section className="py-5 pt-0 bg-white">
         <div className="container">
           <h2 className="text-[20px] font-600]">Featured Products</h2>
-          {
-            featuredProduct?.length !== 0 && <ProdutsSlider items={6} data={featuredProduct}/>
-          }
-          
+          {featuredProduct?.length === 0 && <ProductLoading />}
+
+          {featuredProduct?.length !== 0 && (
+            <ProdutsSlider items={6} data={featuredProduct} />
+          )}
+
           <AdsBannerSlider items={3} />
         </div>
       </section>

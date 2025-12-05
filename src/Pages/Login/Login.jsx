@@ -71,8 +71,6 @@ const Login = () => {
 
     postData("/api/user/login", formFields, { withCredentials: true }).then(
       (res) => {
-        console.log(res);
-
         if (res?.error !== true) {
           setIsLoading(false);
           context.openAlartBox("Sucess", res?.message);

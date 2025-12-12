@@ -27,10 +27,12 @@ const HomePage = () => {
   const [productData, setAllProductData] = useState([]);
   const [featuredProduct, setFeaturedProduct] = useState([]);
   const [bannerV1Data, setBannerV1Data] = useState([]);
+  const [blogData, setBlogData] = useState([]);
 
   const context = useContext(myContext);
 
   useEffect(() => {
+    window.scrollTo(0,0)
     fetchDataFromApi("/api/homeSlides").then((res) => {
       setHomeSlidesData(res?.data?.data);
     });
@@ -45,10 +47,12 @@ const HomePage = () => {
       }
     });
     fetchDataFromApi(`/api/bannerV1`).then((res) => {
-      console.log("banner", res)
       setBannerV1Data(res?.data?.data);
     });
-  },);
+    fetchDataFromApi(`/api/blog`).then((res) => {
+      setBlogData(res?.data?.blogs);
+    });
+  }, []);
 
   useEffect(() => {
     fetchDataFromApi(
@@ -102,7 +106,7 @@ const HomePage = () => {
                 {context?.catData?.length !== 0 &&
                   context?.catData?.map((cat, index) => {
                     return (
-                      <Tab
+                      <Tab key={index}
                         label={cat?.name}
                         onClick={() => filterByCatId(cat?._id)}
                       />
@@ -160,11 +164,9 @@ const HomePage = () => {
             </div>
           </div>
 
-          {
-            bannerV1Data?.length !== 0 &&  <AdsBannerSliderV2 items={4} data={bannerV1Data} />
-          }
-
-         
+          {bannerV1Data?.length !== 0 && (
+            <AdsBannerSliderV2 items={4} data={bannerV1Data} />
+          )}
         </div>
       </section>
       <section className="py-5 pt-0 bg-white">
@@ -191,40 +193,29 @@ const HomePage = () => {
           <AdsBannerSlider items={3} />
         </div>
       </section>
-      <section className="py-5 pb-8 pt-0 bg-white blogSection">
-        <div className="container">
-          <h2 className="text-[20px] font-600] mb-5">From The Blog</h2>
-          <Swiper
-            slidesPerView={4}
-            spaceBetween={15}
-            navigation={true}
-            modules={[Navigation]}
-            className="blogSlider"
-          >
-            <SwiperSlide>
-              <BlogItem />
-            </SwiperSlide>
-            <SwiperSlide>
-              <BlogItem />
-            </SwiperSlide>
-            <SwiperSlide>
-              <BlogItem />
-            </SwiperSlide>
-            <SwiperSlide>
-              <BlogItem />
-            </SwiperSlide>
-            <SwiperSlide>
-              <BlogItem />
-            </SwiperSlide>
-            <SwiperSlide>
-              <BlogItem />
-            </SwiperSlide>
-            <SwiperSlide>
-              <BlogItem />
-            </SwiperSlide>
-          </Swiper>
-        </div>
-      </section>
+
+      {blogData?.length !== 0 && (
+        <section className="py-5 pb-8 pt-0 bg-white blogSection">
+          <div className="container">
+            <h2 className="text-[20px] font-600] mb-5">From The Blog</h2>
+            <Swiper
+              slidesPerView={4}
+              spaceBetween={15}
+              navigation={true}
+              modules={[Navigation]}
+              className="blogSlider"
+            >
+              {blogData?.map((item, index) => {
+                return (
+                  <SwiperSlide key={index}>
+                    <BlogItem item={item} />
+                  </SwiperSlide>
+                );
+              })}
+            </Swiper>
+          </div>
+        </section>
+      )}
     </>
   );
 };

@@ -17,7 +17,7 @@ const ProductDetailsComponent = (props) => {
           </span>
         </span>
         <Rating name="size-small" defaultValue={4} size="small" readOnly />
-        <span className="text-[13px] cursor-pointer">Review</span>
+        <span className="text-[13px] cursor-pointer" onClick={props.gotoReviews}>Review ({props.reviewsCount})</span>
       </div>
       <div className="flex items-center gap-4 mt-4">
         <span className="oldPrice line-through text-gray-500 text-[18px] font-[500]">

@@ -16,7 +16,7 @@ const CartPanel = (props) => {
   };
   return (
     <>
-      <div className="scroll w-full max-h-[400px] overflow-y-scroll overflow-x-hidden py-3 px-4">
+      <div className="scroll w-full max-h-[500px] overflow-y-scroll overflow-x-hidden py-3 px-4">
         {props?.data?.map((item, index) => {
           return (
             <div
@@ -63,8 +63,8 @@ const CartPanel = (props) => {
       </div>
 
       <br />
-      <div className="bottomSection absolute bottom-[10px] left-[10px] w-full overflow-x-hidden pr-5">
-        <div className="bottomInfo py-3 px-4 w-full border-t border-[rgba(0,0,0,0.1)] flex items-center justify-between flex-col">
+      <div className="bottomSection absolute bottom-[0px] left-[0px] w-full overflow-x-hidden bg-[#fcecec] border-t-1 border-[#ff5252]">
+        <div className="bottomInfo py-3 px-6 w-full border-t border-[rgba(0,0,0,0.1)] flex items-center justify-between flex-col">
           <div className="flex items-center justify-between w-full">
             <span className="text-[14px] font-[600]">
               {context?.cartData?.length} Item
@@ -88,7 +88,7 @@ const CartPanel = (props) => {
           </div> */}
         </div>
 
-        <div className="bottomInfo py-3 px-4 w-full border-t border-[rgba(0,0,0,0.1)] flex items-center justify-between flex-col">
+        <div className="bottomInfo py-3 px-6 w-full border-t border-[rgba(0,0,0,0.1)] flex items-center justify-between flex-col">
           <div className="flex items-center justify-between w-full">
             <span className="text-[14px] font-[600]">Total (Tax excl.)</span>
             <span className="text-[#ff5252] font-bold">
@@ -111,12 +111,12 @@ const CartPanel = (props) => {
         </div>
         <br />
 
-        <div className="flex items-center justify-between w-full gap-5">
+        <div className="flex px-6 pb-6 items-center justify-between w-full gap-5">
           <Link to="/cart" className=" w-[50%] d-block" onClick={context.toggleCartPanel(false)}>
-            <Button className="btn-org btn-lg w-full">View cart</Button>
+            <Button className="btn-org btn-sm w-full">View cart</Button>
           </Link>
           <Link to="/checkout" className=" w-[50%] d-block">
-            <Button className="btn-org btn-lg w-full">Checkout</Button>
+            <Button className="btn-org btn-sm w-full">Checkout</Button>
           </Link>
         </div>
       </div>

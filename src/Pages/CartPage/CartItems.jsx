@@ -5,7 +5,7 @@ import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
 import { MdArrowDropDown } from "react-icons/md";
 import Rating from "@mui/material/Rating";
-import { deleteData, editData } from "../../utlis/api";
+import { deleteData, editData, fetchDataFromApi } from "../../utlis/api";
 import { myContext } from "../../App";
 
 const CartItems = (props) => {
@@ -54,7 +54,7 @@ const CartItems = (props) => {
     }
   };
 
-  const updateCart = (selectedVal, qty) => {
+  const updateCart = (selectedVal, qty, field) => {
     handleCloseSize(selectedVal);
     const cartObj = {
       _id: props?.item?._id,
@@ -64,12 +64,63 @@ const CartItems = (props) => {
       weight: props?.item?.weight !== "" ? selectedVal : "",
       ram: props?.item?.ram !== "" ? selectedVal : "",
     };
-    editData("/api/cart/update-qty", cartObj).then((res) => {
-      if (res?.data?.error === false) {
-        context.openAlartBox("Sucess", res?.data?.message);
-        context?.getCartItems();
-      }
-    });
+    // product size available
+    if (field === "size") {
+      fetchDataFromApi(`/api/product/${props?.item?.productId}`).then((res) => {
+        const product = res?.data?.product;
+        const item = product?.size?.filter((size) =>
+          size?.includes(selectedVal)
+        );
+        if (item?.length !== 0) {
+          editData("/api/cart/update-qty", cartObj).then((res) => {
+            if (res?.data?.error === false) {
+              context.openAlartBox("Sucess", res?.data?.message);
+              context?.getCartItems();
+            }
+          });
+        } else {
+          context.openAlartBox("Error", `Product Size ${selectedVal} not available `);
+        }
+      });
+    }
+    // product weight available
+    if (field === "weight") {
+      fetchDataFromApi(`/api/product/${props?.item?.productId}`).then((res) => {
+        const product = res?.data?.product;
+        const item = product?.productWeight?.filter((weight) =>
+          weight?.includes(selectedVal)
+        );
+        if (item?.length !== 0) {
+          editData("/api/cart/update-qty", cartObj).then((res) => {
+            if (res?.data?.error === false) {
+              context.openAlartBox("Sucess", res?.data?.message);
+              context?.getCartItems();
+            }
+          });
+        } else {
+          context.openAlartBox("Error", `Product weight ${selectedVal} not available `);
+        }
+      });
+    }
+    // product ram available
+    if (field === "ram") {
+      fetchDataFromApi(`/api/product/${props?.item?.productId}`).then((res) => {
+        const product = res?.data?.product;
+        const item = product?.productRam?.filter((ram) =>
+          ram?.includes(selectedVal)
+        );
+        if (item?.length !== 0) {
+          editData("/api/cart/update-qty", cartObj).then((res) => {
+            if (res?.data?.error === false) {
+              context.openAlartBox("Sucess", res?.data?.message);
+              context?.getCartItems();
+            }
+          });
+        } else {
+          context.openAlartBox("Error", `Product RAM ${selectedVal} not available `);
+        }
+      });
+    }
   };
 
   const removeItem = (id) => {
@@ -119,7 +170,6 @@ const CartItems = (props) => {
                 >
                   Size : {selectedSize} <MdArrowDropDown />
                 </span>
-                {console.log("selectedSize", selectedSize)}
 
                 <Menu
                   id="size-menu"
@@ -140,7 +190,7 @@ const CartItems = (props) => {
                           item?.name === selectedSize && "selected"
                         }`}
                         onClick={() =>
-                          updateCart(item?.name, props?.item?.quantity)
+                          updateCart(item?.name, props?.item?.quantity, "size")
                         }
                       >
                         {item?.name}
@@ -181,7 +231,7 @@ const CartItems = (props) => {
                           item?.name === selectedSize && "selected"
                         }`}
                         onClick={() =>
-                          updateCart(item?.name, props?.item?.quantity)
+                          updateCart(item?.name, props?.item?.quantity, "ram")
                         }
                       >
                         {item?.name}
@@ -221,7 +271,11 @@ const CartItems = (props) => {
                           item?.name === selectedSize && "selected"
                         }`}
                         onClick={() =>
-                          updateCart(item?.name, props?.item?.quantity)
+                          updateCart(
+                            item?.name,
+                            props?.item?.quantity,
+                            "weight"
+                          )
                         }
                       >
                         {item?.name}

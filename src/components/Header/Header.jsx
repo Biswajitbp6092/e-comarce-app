@@ -55,6 +55,7 @@ const Header = () => {
         localStorage.removeItem("accessToken");
         localStorage.removeItem("refreshToken");
         Context.setUserData(null);
+        Context.setCartData([]);
         navigate("/");
       }
     });
@@ -237,7 +238,14 @@ const Header = () => {
                     aria-label="cart"
                     onClick={() => Context.setOpenCartPanel(true)}
                   >
-                    <StyledBadge badgeContent={Context?.cartData?.length !==0 ? Context?.cartData?.length : 0} color="secondary">
+                    <StyledBadge
+                      badgeContent={
+                        Context?.cartData?.length !== 0
+                          ? Context?.cartData?.length
+                          : 0
+                      }
+                      color="secondary"
+                    >
                       <IoCartOutline size={30} />
                     </StyledBadge>
                   </IconButton>

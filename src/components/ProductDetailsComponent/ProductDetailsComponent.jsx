@@ -12,7 +12,7 @@ const ProductDetailsComponent = (props) => {
   const [quantity, setQuantity] = useState(1);
   const [selectedTabName, setSelectedTabName] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
-  const [tabError, setTabError] = useState(false)
+  const [tabError, setTabError] = useState(false);
 
   const context = useContext(myContext);
 
@@ -48,9 +48,33 @@ const ProductDetailsComponent = (props) => {
       ram: props?.item?.productRam?.length !== 0 ? selectedTabName : "",
     };
 
-    if (selectedTabName !== null) {
-      setIsLoading(true);
+    if (
+      props?.item?.size?.length !== 0 ||
+      props?.item?.productWeight?.length !== 0 ||
+      props?.item?.productRam?.length !== 0
+    ) {
+      if (selectedTabName !== null) {
+        setIsLoading(true);
 
+        postData("/api/cart/add", productItem).then((res) => {
+          if (res?.error === false) {
+            context?.openAlartBox("Sucess", res?.message);
+            context?.getCartItems();
+            setTimeout(() => {
+              setIsLoading(false);
+            }, 500);
+          } else {
+            context?.openAlartBox("Error", res?.message);
+            setTimeout(() => {
+              setIsLoading(false);
+            }, 500);
+          }
+        });
+      } else {
+        setTabError(true);
+      }
+    } else {
+      setIsLoading(true);
       postData("/api/cart/add", productItem).then((res) => {
         if (res?.error === false) {
           context?.openAlartBox("Sucess", res?.message);
@@ -65,8 +89,6 @@ const ProductDetailsComponent = (props) => {
           }, 500);
         }
       });
-    }else{
-      setTabError(true)
     }
   };
   return (
@@ -114,7 +136,7 @@ const ProductDetailsComponent = (props) => {
                     productActionIndex === index
                       ? "!bg-[#ff5252] !text-white"
                       : ""
-                  }`}
+                  }${tabError === true && "!border-2 !border-[#ff5252]"}`}
                   onClick={() => handelClickActiveTab(index, item)}
                 >
                   {item}
@@ -132,7 +154,11 @@ const ProductDetailsComponent = (props) => {
             {props?.item?.size?.map((item, index) => {
               return (
                 <Button
-                  className={`${productActionIndex === index ? "!bg-[#ff5252] !text-white" : ""} ${tabError === true && '!border-2 !border-[#ff5252]'}`}
+                  className={`${
+                    productActionIndex === index
+                      ? "!bg-[#ff5252] !text-white"
+                      : ""
+                  } ${tabError === true && "!border-2 !border-[#ff5252]"}`}
                   onClick={() => handelClickActiveTab(index, item)}
                 >
                   {item}
@@ -153,7 +179,7 @@ const ProductDetailsComponent = (props) => {
                     productActionIndex === index
                       ? "!bg-[#ff5252] !text-white"
                       : ""
-                  }`}
+                  } ${tabError === true && "!border-2 !border-[#ff5252]"}`}
                   onClick={() => handelClickActiveTab(index, item)}
                 >
                   {item}
@@ -178,7 +204,10 @@ const ProductDetailsComponent = (props) => {
           }
         >
           {isLoading === true ? (
-            <CircularProgress color="inherit" style={{width:'30px', height:'30px'}} />
+            <CircularProgress
+              color="inherit"
+              style={{ width: "30px", height: "30px" }}
+            />
           ) : (
             <>
               <IoCartOutline size={24} />

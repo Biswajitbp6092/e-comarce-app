@@ -5,7 +5,11 @@ import Rating from "@mui/material/Rating";
 import Button from "@mui/material/Button";
 import { FaRegHeart } from "react-icons/fa";
 import { GoGitCompare } from "react-icons/go";
-import { MdOutlineShoppingCart, MdOutlineZoomOutMap } from "react-icons/md";
+import {
+  MdClose,
+  MdOutlineShoppingCart,
+  MdOutlineZoomOutMap,
+} from "react-icons/md";
 import { myContext } from "../../App";
 import { useState } from "react";
 import { FaMinus, FaPlus } from "react-icons/fa6";
@@ -147,6 +151,12 @@ const ProductsItems = (props) => {
         </Link>
         {isShowTabs === true && (
           <div className="flex items-center justify-center absolute top-0 left-0 w-full h-full bg-[rgba(0,0,0,0.7)] z-[30] p-3 gap-2">
+            <Button
+              onClick={() => setIsShowTabs(false)}
+              className="!absolute top-[10px] right-[10px] !min-w-[35px] !min-h-[35px] !w-[35px] !h-[35px] !rounded-full !bg-[rgba(255,255,255,1)] !text-[#ff5252]"
+            >
+              <MdClose className=" !text-[#ff5252] text-[25px]" />
+            </Button>
             {props?.item?.size?.length !== 0 &&
               props?.item?.size?.map((item, index) => {
                 return (

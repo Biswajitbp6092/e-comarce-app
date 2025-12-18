@@ -20,6 +20,12 @@ import CartPanel from "../CartPanel/CartPanel";
 import { myContext } from "../../App";
 import { IoClose } from "react-icons/io5";
 
+import Dialog from "@mui/material/Dialog";
+import DialogContent from "@mui/material/DialogContent";
+
+import ProductZoom from "../ProductZoom/ProductZoom";
+import ProductDetailsComponent from "../ProductDetailsComponent/ProductDetailsComponent";
+
 const Footer = () => {
   const context = useContext(myContext);
   return (
@@ -294,12 +300,55 @@ const Footer = () => {
             <div className="flex items-center justify-center flex-col w-full h-full">
               <img src="/empty-cart.png" alt="" className="w-[200px]" />
               <h4 className="text-2xl">Your Cart is empty</h4>
-              <p className="text-center">Looks like you have not added anything to you cart. <br />Go ahead & explore to categoroies</p>
-              <Button className="btn-org btn-sm" onClick={context.toggleCartPanel(false)}>Shopping Now</Button>
+              <p className="text-center">
+                Looks like you have not added anything to you cart. <br />
+                Go ahead & explore to categoroies
+              </p>
+              <Button
+                className="btn-org btn-sm"
+                onClick={context.toggleCartPanel(false)}
+              >
+                Shopping Now
+              </Button>
             </div>
           </>
         )}
       </Drawer>
+
+      <Dialog
+        fullWidth={context?.fullWidth}
+        maxWidth={context?.maxWidth}
+        open={context?.openProductDetailsModal.open}
+        onClose={context?.handleCloseProductDetailsModal}
+        aria-labelledby="alert-dialog-title"
+        aria-describedby="alert-dialog-description"
+        className="productDetailsModal"
+      >
+        <DialogContent>
+          <div className="flex items-center w-full productDetailsModalContainer relative">
+            <Button
+              onClick={context?.handleCloseProductDetailsModal}
+              className="!w-[40px] !h-[40px] !min-w-[40px] !rounded-full !text-[#000] !absolute right-[15px] top-[15px] !bg-[#f2f2f2]"
+            >
+              <IoClose size={32} />
+            </Button>
+            {context?.openProductDetailsModal?.item?.length !== 0 && (
+              <>
+                <div className="col1 w-[40%] px-3">
+                  <ProductZoom
+                    images={context?.openProductDetailsModal?.item?.images}
+                  />
+                </div>
+                <div className="col2 w-[60%] py-8 px-8 pr-16 productContain">
+                  <ProductDetailsComponent
+                    item={context?.openProductDetailsModal?.item}
+                  />
+                </div>
+              </>
+            )}
+          </div>
+        </DialogContent>
+      </Dialog>
     </>
   );
 };

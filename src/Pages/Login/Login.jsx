@@ -10,6 +10,7 @@ import { postData } from "../../utlis/api";
 
 import { getAuth, signInWithPopup, GoogleAuthProvider } from "firebase/auth";
 import { firebaseApp } from "../../firebase";
+import { useEffect } from "react";
 const auth = getAuth(firebaseApp);
 const GoogleProvider = new GoogleAuthProvider();
 
@@ -22,8 +23,11 @@ const Login = () => {
   });
 
   const context = useContext(myContext);
-
   const navigate = useNavigate();
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
 
   const forGotPassword = (e) => {
     e.preventDefault();
@@ -208,14 +212,7 @@ const Login = () => {
                 disabled={!validValue}
                 className="btn-org btn-lg w-full"
               >
-                {isLoading ? (
-                  <CircularProgress
-                    color="inherit"
-                    style={{ width: "20px", height: "20px" }}
-                  />
-                ) : (
-                  "Submit"
-                )}
+                {isLoading ? <CircularProgress color="inherit" /> : "Submit"}
               </Button>
             </div>
             <p>

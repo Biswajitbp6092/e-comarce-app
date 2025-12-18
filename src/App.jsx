@@ -27,7 +27,7 @@ import CheckOut from "./Pages/CheckOut/CheckOut";
 import MyAccount from "./Pages/MyAccount/MyAccount";
 import MyList from "./Pages/MyList/MyList";
 import Orders from "./Pages/Orders/Orders";
-import { fetchDataFromApi } from "./utlis/api";
+import { fetchDataFromApi, postData } from "./utlis/api";
 import Address from "./Pages/MyAccount/address";
 
 const myContext = createContext();
@@ -42,6 +42,7 @@ function App() {
   const [isLogin, setIsLogin] = useState(false);
   const [userData, setUserData] = useState(null);
   const [catData, setCatData] = useState([]);
+  const [cartData, setCartData] = useState([]);
 
   const [openCartPanel, setOpenCartPanel] = useState(false);
 
@@ -79,6 +80,7 @@ function App() {
           }
         }
       });
+      getCartItems();
     } else {
       setIsLogin(false);
     }
@@ -101,6 +103,47 @@ function App() {
     }
   };
 
+  const addToCart = (product, userId, quantity) => {
+    if (userId === undefined) {
+      openAlartBox("Error", "You are not Login, please Login Frist");
+      return false;
+    }
+    const data = {
+      productTitle: product?.name,
+      image: product?.image,
+      rating: product?.rating,
+      price: product?.price,
+      oldPrice: product?.oldPrice,
+      quantity: quantity,
+      subTotal: parseInt(product?.price * quantity),
+      productId: product?._id,
+      countInStock: product?.countInStock,
+      userId: userId,
+      brand: product?.brand,
+      discount: product?.discount,
+      size: product?.size,
+      weight: product?.weight,
+      ram: product?.ram,
+    };
+
+    postData("/api/cart/add", data).then((res) => {
+      if (res?.error === false) {
+        openAlartBox("Sucess", res?.message);
+        getCartItems();
+      } else {
+        openAlartBox("Error", res?.message);
+      }
+    });
+  };
+
+  const getCartItems = () => {
+    fetchDataFromApi(`/api/cart/get`).then((res) => {
+      if (res?.data?.error === false) {
+        setCartData(res?.data?.data);
+      }
+    });
+  };
+
   const values = {
     setOpenProductDetailsModal,
     handleOpenProductDetailsModal,
@@ -114,6 +157,9 @@ function App() {
     setUserData,
     setCatData,
     catData,
+    addToCart,
+    cartData,
+    getCartItems,
   };
   return (
     <>
@@ -161,10 +207,12 @@ function App() {
             {openProductDetailsModal?.item?.length !== 0 && (
               <>
                 <div className="col1 w-[40%] px-3">
-                  <ProductZoom images={openProductDetailsModal?.item?.images}/>
+                  <ProductZoom images={openProductDetailsModal?.item?.images} />
                 </div>
                 <div className="col2 w-[60%] py-8 px-8 pr-16 productContain">
-                  <ProductDetailsComponent item={openProductDetailsModal?.item} />
+                  <ProductDetailsComponent
+                    item={openProductDetailsModal?.item}
+                  />
                 </div>
               </>
             )}

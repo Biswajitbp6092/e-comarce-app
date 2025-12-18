@@ -282,4 +282,7 @@ button.MuiCircularProgress-root{ width: 100px !important; height: 100px !importa
 
 .MuiDialog-paper{width: 800px !important; max-width: 800px !important;}
 .productDetailsModal .MuiDialog-paper{width:1200px !important; max-width: 1200px !important;}
-.MuiCircularProgress-root{color:#ff5252 !important }
+button.MuiCircularProgress-root{color:#ff5252 !important; width: 30px !important; height: 30px !important;}
+button.btn-org.MuiCircularProgress-root{color:#ffffff !important }
+
+.MuiButtonBase-root.MuiMenuItem-root.MuiMenuItem-gutters.selected{color:#ff5252 !important }

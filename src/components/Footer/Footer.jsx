@@ -15,17 +15,13 @@ import { FaYoutube } from "react-icons/fa";
 import { FaPinterestP } from "react-icons/fa6";
 import { FaInstagram } from "react-icons/fa";
 
-
-
 import Drawer from "@mui/material/Drawer";
 import CartPanel from "../CartPanel/CartPanel";
 import { myContext } from "../../App";
 import { IoClose } from "react-icons/io5";
 
-
 const Footer = () => {
-
-  const context = useContext(myContext)
+  const context = useContext(myContext);
   return (
     <>
       <footer className="py-6 bg-[#fafafa]">
@@ -284,14 +280,25 @@ const Footer = () => {
         className="cartPanel"
       >
         <div className="flex items-center justify-between py-3 px-4 gap-3 border-b border-[rgba(0,0,0,0.2)]">
-          <h1>Shopping cart (1)</h1>
+          <h1>Shopping cart ({context?.cartData?.length})</h1>
           <IoClose
             onClick={context.toggleCartPanel(false)}
             size={20}
             className="cursor-pointer"
           />
         </div>
-        <CartPanel />
+        {context?.cartData?.length !== 0 ? (
+          <CartPanel data={context.cartData} />
+        ) : (
+          <>
+            <div className="flex items-center justify-center flex-col w-full h-full">
+              <img src="/empty-cart.png" alt="" className="w-[200px]" />
+              <h4 className="text-2xl">Your Cart is empty</h4>
+              <p className="text-center">Looks like you have not added anything to you cart. <br />Go ahead & explore to categoroies</p>
+              <Button className="btn-org btn-sm" onClick={context.toggleCartPanel(false)}>Shopping Now</Button>
+            </div>
+          </>
+        )}
       </Drawer>
     </>
   );

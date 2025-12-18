@@ -11,6 +11,7 @@ import { useNavigate } from "react-router-dom";
 
 import { getAuth, signInWithPopup, GoogleAuthProvider } from "firebase/auth";
 import { firebaseApp } from "../../firebase";
+import { useEffect } from "react";
 const auth = getAuth(firebaseApp);
 const GoogleProvider = new GoogleAuthProvider();
 
@@ -26,6 +27,10 @@ const Register = () => {
 
   const context = useContext(myContext);
   const navigate = useNavigate();
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
 
   const onChangeInput = (e) => {
     const { name, value } = e.target;
@@ -95,7 +100,7 @@ const Register = () => {
             setIsLoading(false);
             context.openAlartBox("Sucess", res?.message);
             localStorage.setItem("userEmail", fields.email);
-            
+
             localStorage.setItem("accessToken", res?.data?.accessToken);
             localStorage.setItem("refreshToken", res?.data?.refreshToken);
 
@@ -189,7 +194,7 @@ const Register = () => {
                 {isLoading ? (
                   <CircularProgress
                     color="inherit"
-                    style={{ width: "20px", height: "20px" }}
+                    
                   />
                 ) : (
                   "Submit"

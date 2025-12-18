@@ -2,14 +2,21 @@ import React, { useState } from "react";
 import Button from "@mui/material/Button";
 import { IoIosArrowDown, IoIosArrowUp } from "react-icons/io";
 
-const QtyBox = () => {
+const QtyBox = (props) => {
   const [qtyVal, setQtyVal] = useState(1);
+
   const plusQty = () => {
-    setQtyVal((prev) => prev + 1);
+    setQtyVal(qtyVal + 1);
+    props?.handelSelecteQty(qtyVal + 1);
   };
+
   const minusQty = () => {
-    if (qtyVal > 1) {
-      setQtyVal((prev) => (prev > 1 ? prev - 1 : 1));
+    if (qtyVal === 1) {
+      setQtyVal(1);
+      props?.handelSelecteQty(1);
+    } else {
+      setQtyVal(qtyVal - 1);
+      props?.handelSelecteQty(qtyVal - 1);
     }
   };
   return (

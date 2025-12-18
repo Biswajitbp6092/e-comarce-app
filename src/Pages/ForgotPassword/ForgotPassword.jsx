@@ -132,10 +132,7 @@ const ForgotPassword = () => {
                 className="btn-org btn-lg w-full"
               >
                 {isLoading ? (
-                  <CircularProgress
-                    color="inherit"
-                    style={{ width: "20px", height: "20px" }}
-                  />
+                  <CircularProgress color="inherit" />
                 ) : (
                   "Change Password"
                 )}

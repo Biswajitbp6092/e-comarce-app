@@ -40,9 +40,10 @@ const ProductDetails = () => {
         fetchDataFromApi(
           `/api/product/getAllProductBySubCatId/${res?.data?.product?.subCatId}`
         ).then((res) => {
-          console.log("suvoooo", res?.data?.products);
           if (res?.data?.error === false) {
-            const filteredData = res?.data?.products?.filter((item)=>item._id !==id)
+            const filteredData = res?.data?.products?.filter(
+              (item) => item._id !== id
+            );
             setRelatedProductData(filteredData);
           }
         });
@@ -169,7 +170,7 @@ const ProductDetails = () => {
             {relatedProductData?.length !== 0 && (
               <div className="container pt-10">
                 <h2 className="text-[20px] font-600]">Related Products</h2>
-                <ProdutsSlider items={6} data = {relatedProductData} />
+                <ProdutsSlider items={6} data={relatedProductData} />
               </div>
             )}
           </>

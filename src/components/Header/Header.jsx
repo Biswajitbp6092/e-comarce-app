@@ -54,8 +54,9 @@ const Header = () => {
         Context.setIsLogin(false);
         localStorage.removeItem("accessToken");
         localStorage.removeItem("refreshToken");
-        Context.setUserData(null);
-        Context.setCartData([]);
+        Context?.setUserData(null);
+        Context?.setCartData([]);
+        Context?.setMyListData([]);
         navigate("/");
       }
     });
@@ -224,11 +225,20 @@ const Header = () => {
 
               <li>
                 <Tooltip title="Wishlist">
-                  <IconButton aria-label="Wishlist">
-                    <StyledBadge badgeContent={4} color="secondary">
-                      <FaRegHeart />
-                    </StyledBadge>
-                  </IconButton>
+                  <Link to={"/my-list"}>
+                    <IconButton aria-label="Wishlist">
+                      <StyledBadge
+                        badgeContent={
+                          Context?.myListData?.length !== 0
+                            ? Context?.myListData?.length
+                            : 0
+                        }
+                        color="secondary"
+                      >
+                        <FaRegHeart />
+                      </StyledBadge>
+                    </IconButton>
+                  </Link>
                 </Tooltip>
               </li>
 

@@ -33,6 +33,7 @@ function App() {
   const [userData, setUserData] = useState(null);
   const [catData, setCatData] = useState([]);
   const [cartData, setCartData] = useState([]);
+  const [myListData, setMyListData] = useState([]);
 
   const [openCartPanel, setOpenCartPanel] = useState(false);
 
@@ -58,6 +59,7 @@ function App() {
     const token = localStorage.getItem("accessToken");
     if (token !== undefined && token !== null && token !== "") {
       setIsLogin(true);
+
       fetchDataFromApi(`/api/user/user-details`).then((res) => {
         setUserData(res?.data?.data);
         if (res?.data?.data?.error === true) {
@@ -71,6 +73,7 @@ function App() {
         }
       });
       getCartItems();
+      getMyListData();
     } else {
       setIsLogin(false);
     }
@@ -133,6 +136,13 @@ function App() {
       }
     });
   };
+  const getMyListData = () => {
+    fetchDataFromApi(`/api/mylist`).then((res) => {
+      if (res?.data?.error === false) {
+        setMyListData(res?.data?.data);
+      }
+    });
+  };
 
   const values = {
     openProductDetailsModal,
@@ -153,6 +163,9 @@ function App() {
     cartData,
     setCartData,
     getCartItems,
+    myListData,
+    setMyListData,
+    getMyListData,
   };
   return (
     <>

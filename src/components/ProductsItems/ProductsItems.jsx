@@ -304,7 +304,7 @@ const ProductsItems = (props) => {
         <div className="!absolute bottom-[15px] left-0 pl-3 pr-3 w-full">
           {isAdded === false ? (
             <Button
-              className="btn-org flex w-full btn-sm gap-2"
+              className="btn-org btn-sm btn-border  flex w-full  gap-2"
               size="small"
               onClick={() =>
                 addToCart(props?.item, context?.userData?._id, quantity)

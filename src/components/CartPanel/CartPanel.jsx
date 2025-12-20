@@ -48,7 +48,7 @@ const CartPanel = (props) => {
                     Qty : <span>{item?.quantity}</span>
                   </span>
                   <span className="text-[#ff5252] font-bold">
-                    price : &#x20b9; {item?.price}
+                    Price: {item?.price?.toLocaleString('en-US',{style:'currency', currency:'INR'})}
                   </span>
                 </p>
                 <MdDeleteOutline
@@ -116,7 +116,7 @@ const CartPanel = (props) => {
             <Button className="btn-org btn-sm w-full">View cart</Button>
           </Link>
           <Link to="/checkout" className=" w-[50%] d-block">
-            <Button className="btn-org btn-sm w-full">Checkout</Button>
+            <Button className="btn-org btn-sm w-full" onClick={context.toggleCartPanel(false)}>Checkout</Button>
           </Link>
         </div>
       </div>

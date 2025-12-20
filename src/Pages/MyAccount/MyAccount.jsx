@@ -220,7 +220,7 @@ const MyAccount = () => {
                   className="btn-org btn-lg w-[180px]"
                 >
                   {isLoading ? (
-                    <CircularProgress color="inherit" />
+                    <CircularProgress color="inherit" style={{width:"28px", height:"28px"}} />
                   ) : (
                     "Update Profile"
                   )}
@@ -290,7 +290,7 @@ const MyAccount = () => {
                 <div className="flex items-center gap-4">
                   <Button type="submit" className="btn-org btn-lg w-[200px]">
                     {isLoading2 ? (
-                      <CircularProgress color="inherit" />
+                      <CircularProgress color="inherit"  style={{width:"28px", height:"28px"}}/>
                     ) : (
                       "Change Password"
                     )}

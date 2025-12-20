@@ -25,6 +25,7 @@ import DialogContent from "@mui/material/DialogContent";
 
 import ProductZoom from "../ProductZoom/ProductZoom";
 import ProductDetailsComponent from "../ProductDetailsComponent/ProductDetailsComponent";
+import AddAddress from "../../Pages/MyAccount/AddAddress";
 
 const Footer = () => {
   const context = useContext(myContext);
@@ -313,6 +314,25 @@ const Footer = () => {
             </div>
           </>
         )}
+      </Drawer>
+
+      {/* Address panel */}
+      <Drawer
+        open={context.openAddressPanel}
+        onClose={context.toggleAddressPanel(false)}
+        anchor="right"
+        className="addressPanel"
+      >
+        <div className="flex items-center justify-between py-3 px-4 gap-3 border-b border-[rgba(0,0,0,0.2)]">
+          <h1>{context?.addressMode === "add" ? "Add": "Edit"} Delevery Address</h1>
+          <IoClose
+            onClick={context.toggleAddressPanel(false)}
+            size={20}
+            className="cursor-pointer"
+          />
+        </div>
+        <AddAddress/>
+        
       </Drawer>
 
       <Dialog

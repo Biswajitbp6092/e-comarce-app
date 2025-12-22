@@ -163,15 +163,12 @@ function App() {
     setOpenProductDetailsModal,
     handleOpenProductDetailsModal,
     handleCloseProductDetailsModal,
-
     setOpenCartPanel,
     toggleCartPanel,
     openCartPanel,
-
     setOpenAddressPanel,
     toggleAddressPanel,
     openAddressPanel,
-
     openAlartBox,
     isLogin,
     setIsLogin,
@@ -199,7 +196,7 @@ function App() {
           <Header />
           <Routes>
             <Route path="/" element={<HomePage />} />
-            <Route path="productlisting" element={<ProductListing />} />
+            <Route path="/productlisting" element={<ProductListing />} />
             <Route path="/product/:id" element={<ProductDetails />} />
             <Route path="/login" element={<Login />} />
             <Route path="/register" element={<Register />} />

@@ -9,8 +9,7 @@ import { useNavigate } from "react-router-dom";
 
 // payemt getway Razor Pay
 const VITE_APP_RAZORPAY_KEY_ID = import.meta.env.VITE_APP_RAZORPAY_KEY_ID;
-const VITE_APP_RAZORPAY_KEY_SECRET = import.meta.env
-  .VITE_APP_RAZORPAY_KEY_SECRET;
+const VITE_APP_RAZORPAY_KEY_SECRET = import.meta.env.VITE_APP_RAZORPAY_KEY_SECRET;
 
 const CheckOut = () => {
   const [userData, setUserData] = useState(null);
@@ -27,10 +26,8 @@ const CheckOut = () => {
   useEffect(() => {
     setUserData(context?.userData);
     setSelectedAddress(context?.userData?.address_details[0]?._id);
-    fetchDataFromApi(`/api/order/order-list`).then((res) => {
-      console.log("order-list", res);
-    });
-  }, [context?.userData, userData]);
+    fetchDataFromApi(`/api/order/order-list`).then((res) => {});
+  }, [context?.userData]);
 
   useEffect(() => {
     setTotalAmount(
@@ -71,8 +68,6 @@ const CheckOut = () => {
       name: "B-Mart megashop",
       description: "for testing purpose",
       handler: function (response) {
-        console.log(response);
-
         const paymentId = response?.razorpay_payment_id;
         const user = context?.userData;
 
@@ -118,14 +113,6 @@ const CheckOut = () => {
 
     const user = context?.userData;
 
-    // const totalAmount =
-    //   context?.cartData?.length !== 0
-    //     ? context.cartData.reduce(
-    //         (sum, item) => sum + item.price * item.quantity,
-    //         0
-    //       )
-    //     : 0;
-
     const payLoad = {
       userId: user?._id,
       products: context?.cartData,
@@ -139,6 +126,7 @@ const CheckOut = () => {
         year: "numeric",
       }),
     };
+   
 
     postData(`/api/order/create`, payLoad).then((res) => {
       context.openAlartBox("Sucess", res?.message);
@@ -307,7 +295,7 @@ const CheckOut = () => {
                   className="btn-org btn-lg w-full flex items-center gap-2"
                 >
                   <BsBagCheckFill size={22} />
-                 Pay Online
+                  Pay Online
                 </Button>
 
                 <Button

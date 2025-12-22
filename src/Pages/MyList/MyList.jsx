@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect } from "react";
 import MyListItems from "./MyListItems";
 import AccountSideBar from "../../components/AccountSideBar/AccountSideBar";
 import { myContext } from "../../App";
@@ -8,6 +8,9 @@ import { FaPlus } from "react-icons/fa6";
 
 const MyList = () => {
   const context = useContext(myContext);
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
   return (
     <section className="py-10 w-full">
       <div className="container flex gap-5">

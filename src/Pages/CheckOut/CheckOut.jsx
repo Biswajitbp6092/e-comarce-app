@@ -9,7 +9,8 @@ import { useNavigate } from "react-router-dom";
 
 // payemt getway Razor Pay
 const VITE_APP_RAZORPAY_KEY_ID = import.meta.env.VITE_APP_RAZORPAY_KEY_ID;
-const VITE_APP_RAZORPAY_KEY_SECRET = import.meta.env.VITE_APP_RAZORPAY_KEY_SECRET;
+const VITE_APP_RAZORPAY_KEY_SECRET = import.meta.env
+  .VITE_APP_RAZORPAY_KEY_SECRET;
 
 const CheckOut = () => {
   const [userData, setUserData] = useState(null);
@@ -19,14 +20,11 @@ const CheckOut = () => {
 
   const context = useContext(myContext);
   const navigate = useNavigate();
-  useEffect(() => {
-    window.scrollTo(0, 0);
-  }, []);
 
   useEffect(() => {
+    window.scrollTo(0, 0);
     setUserData(context?.userData);
     setSelectedAddress(context?.userData?.address_details[0]?._id);
-    fetchDataFromApi(`/api/order/order-list`).then((res) => {});
   }, [context?.userData]);
 
   useEffect(() => {
@@ -113,32 +111,36 @@ const CheckOut = () => {
 
     const user = context?.userData;
 
-    const payLoad = {
-      userId: user?._id,
-      products: context?.cartData,
-      paymentId: "",
-      payment_status: "Cash on Delivery",
-      delivery_address: selectedAddress,
-      totalAmt: totalAmount,
-      date: new Date().toLocaleString("en-US", {
-        month: "short",
-        day: "2-digit",
-        year: "numeric",
-      }),
-    };
-   
+    if (userData?.address_details?.length !== 0) {
+      const payLoad = {
+        userId: user?._id,
+        products: context?.cartData,
+        paymentId: "",
+        payment_status: "Cash on Delivery",
+        delivery_address: selectedAddress,
+        totalAmt: totalAmount,
+        date: new Date().toLocaleString("en-US", {
+          month: "short",
+          day: "2-digit",
+          year: "numeric",
+        }),
+      };
 
-    postData(`/api/order/create`, payLoad).then((res) => {
-      context.openAlartBox("Sucess", res?.message);
-      if (res?.error === false) {
-        deleteData(`/api/cart/emptyCart/${user?._id}`).then((res) => {
-          context?.getCartItems();
-        });
-        navigate("/");
-      } else {
-        context.openAlartBox("Error", res?.message);
-      }
-    });
+      postData(`/api/order/create`, payLoad).then((res) => {
+        context.openAlartBox("Sucess", res?.message);
+        if (res?.error === false) {
+          deleteData(`/api/cart/emptyCart/${user?._id}`).then((res) => {
+            context?.getCartItems();
+          });
+          navigate("/orders/success");
+        } else {
+          context.openAlartBox("Error", res?.message);
+          navigate("/orders/failed");
+        }
+      });
+    } else {
+      context.openAlartBox("Error", "Please Add Address");
+    }
   };
 
   return (

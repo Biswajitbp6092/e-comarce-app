@@ -20,6 +20,8 @@ import MyList from "./Pages/MyList/MyList";
 import Orders from "./Pages/Orders/Orders";
 import { fetchDataFromApi, postData } from "./utlis/api";
 import Address from "./Pages/MyAccount/Address";
+import OrderSuccess from "./Pages/Orders/OrderSuccess";
+import OrderFailed from "./Pages/Orders/OrderFailed";
 
 const myContext = createContext();
 
@@ -207,6 +209,8 @@ function App() {
             <Route path="/my-account" element={<MyAccount />} />
             <Route path="/my-list" element={<MyList />} />
             <Route path="/my-orders" element={<Orders />} />
+            <Route path="/orders/success" element={<OrderSuccess />} />
+            <Route path="/orders/failed" element={<OrderFailed />} />
             <Route path="/address" element={<Address />} />
           </Routes>
           <Footer />

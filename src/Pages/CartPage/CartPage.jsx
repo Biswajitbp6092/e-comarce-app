@@ -84,7 +84,9 @@ const CartPage = () => {
                     Looks like you have not added anything to you cart. <br />
                     Go ahead & explore to categoroies
                   </p>
-                  <Link to="/"><Button className="btn-org btn-sm">Shopping Now</Button></Link>
+                  <Link to="/">
+                    <Button className="btn-org btn-sm">Shopping Now</Button>
+                  </Link>
                 </div>
               </>
             )}
@@ -134,9 +136,11 @@ const CartPage = () => {
               </span>
             </p>
             <br />
-            <Button className="btn-org btn-lg w-full flex items-center gap-2">
-              Checkout <IoBagCheckSharp size={20} />
-            </Button>
+            <Link to="/checkout">
+              <Button className="btn-org btn-lg w-full flex items-center gap-2">
+                Checkout <IoBagCheckSharp size={20} />
+              </Button>
+            </Link>
           </div>
         </div>
       </div>

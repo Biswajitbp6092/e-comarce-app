@@ -22,6 +22,7 @@ import { fetchDataFromApi, postData } from "./utlis/api";
 import Address from "./Pages/MyAccount/Address";
 import OrderSuccess from "./Pages/Orders/OrderSuccess";
 import OrderFailed from "./Pages/Orders/OrderFailed";
+import SearchPage from "./Pages/SearchPage/SearchPage";
 
 const myContext = createContext();
 
@@ -42,6 +43,7 @@ function App() {
 
   const [addressMode, setAddressMode] = useState("add");
   const [addressId, setAddressId] = useState("");
+  const [searchData, setSearchData] = useState([]);
 
   const handleOpenProductDetailsModal = (status, item) => {
     setOpenProductDetailsModal({
@@ -190,6 +192,8 @@ function App() {
     setAddressMode,
     setAddressId,
     addressId,
+    setSearchData,
+    searchData,
   };
   return (
     <>
@@ -212,6 +216,7 @@ function App() {
             <Route path="/orders/success" element={<OrderSuccess />} />
             <Route path="/orders/failed" element={<OrderFailed />} />
             <Route path="/address" element={<Address />} />
+            <Route path="/search" element={<SearchPage />} />
           </Routes>
           <Footer />
         </myContext.Provider>

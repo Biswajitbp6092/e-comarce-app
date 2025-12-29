@@ -32,6 +32,7 @@ const SideBar = (props) => {
   const location = useLocation();
 
   const handelCheckBoxChange = (field, value) => {
+    context.setSearchData([]);
     const currentValues = filters[field] || [];
     const updatedValues = currentValues?.includes(value)
       ? currentValues.filter((item) => item !== value)
@@ -63,6 +64,7 @@ const SideBar = (props) => {
       filters.subCatId = [];
       filters.thirdSubCatId = [];
       filters.rating = [];
+      context.setSearchData([]);
     }
     if (url.includes("subCatId")) {
       const subcategory = queryParameters.get("subCatId");
@@ -72,6 +74,7 @@ const SideBar = (props) => {
       filters.catId = [];
       filters.thirdSubCatId = [];
       filters.rating = [];
+      context.setSearchData([]);
     }
     if (url.includes("thirdSubCatId")) {
       const thirdcategoryId = queryParameters.get("thirdSubCatId");
@@ -81,6 +84,7 @@ const SideBar = (props) => {
       filters.catId = [];
       filters.thirdSubCatId = thirdcatArr;
       filters.rating = [];
+      context.setSearchData([]);
     }
     filters.page = 1;
 
@@ -91,12 +95,20 @@ const SideBar = (props) => {
 
   const filtersData = () => {
     props.setIsLoading(true);
-    postData(`/api/product/filters`, filters).then((res) => {
-      props.setProductsData(res);
+
+    if (context?.searchData?.products?.length > 0) {
+      props.setProductsData(context?.searchData);
       props.setIsLoading(false);
-      props.setTotalPages(res?.totalPages);
+      props.setTotalPages(context?.searchData.totalPages);
       window.scrollTo(0, 0);
-    });
+    } else {
+      postData(`/api/product/filters`, filters).then((res) => {
+        props.setProductsData(res);
+        props.setIsLoading(false);
+        props.setTotalPages(res?.totalPages);
+        window.scrollTo(0, 0);
+      });
+    }
   };
 
   useEffect(() => {
